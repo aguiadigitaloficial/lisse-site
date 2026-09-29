@@ -8,7 +8,7 @@ import {
 import separatorMark from '../assets/hero/separator-mark.png'
 import cardMarkGold from '../assets/treatments/card-mark-gold.svg'
 import cardMedallion from '../assets/treatments/logo-cards.png'
-import { professionals } from '../data/professionals'
+import { getProfessional, professionalCredentials } from '../data/professionals'
 import type { SpecialtyPage } from '../data/site'
 import type { Treatment } from '../types/content'
 
@@ -49,6 +49,10 @@ function TreatmentGallery({ treatment }: Pick<TreatmentCardProps, 'treatment'>) 
   const [activeIndex, setActiveIndex] = useState(0)
   const mediaCount = treatment.media.length
   const hasMultipleMedia = mediaCount > 1
+  const hasInstitutionalMedia = treatment.media.some(
+    (media) => media.kind === 'institutional',
+  )
+  const mediaNoun = hasInstitutionalMedia ? 'imagem' : 'resultado'
   const renderedMedia = hasMultipleMedia
     ? [
         {
@@ -439,7 +443,7 @@ function TreatmentGallery({ treatment }: Pick<TreatmentCardProps, 'treatment'>) 
           aria-roledescription={hasMultipleMedia ? 'carrossel' : undefined}
           aria-label={
             hasMultipleMedia
-              ? `Resultados de ${treatment.eyebrow}. Arraste ou use as setas para navegar.`
+              ? `${hasInstitutionalMedia ? 'Imagens' : 'Resultados'} de ${treatment.eyebrow}. Arraste ou use as setas para navegar.`
               : `Imagem de ${treatment.eyebrow}`
           }
           tabIndex={hasMultipleMedia ? 0 : undefined}
@@ -502,7 +506,7 @@ function TreatmentGallery({ treatment }: Pick<TreatmentCardProps, 'treatment'>) 
             <button
               className="treatment-gallery__arrow treatment-gallery__arrow--previous"
               type="button"
-              aria-label={`Ver resultado anterior de ${treatment.eyebrow}`}
+              aria-label={`Ver ${mediaNoun} anterior de ${treatment.eyebrow}`}
               onClick={() => navigateBy(-1)}
             >
               ‹
@@ -510,7 +514,7 @@ function TreatmentGallery({ treatment }: Pick<TreatmentCardProps, 'treatment'>) 
             <button
               className="treatment-gallery__arrow treatment-gallery__arrow--next"
               type="button"
-              aria-label={`Ver próximo resultado de ${treatment.eyebrow}`}
+              aria-label={`Ver ${hasInstitutionalMedia ? 'próxima imagem' : 'próximo resultado'} de ${treatment.eyebrow}`}
               onClick={() => navigateBy(1)}
             >
               ›
@@ -525,12 +529,12 @@ function TreatmentGallery({ treatment }: Pick<TreatmentCardProps, 'treatment'>) 
             {String(activeIndex + 1).padStart(2, '0')} /{' '}
             {String(mediaCount).padStart(2, '0')}
           </span>
-          <div className="treatment-gallery__dots" aria-label="Selecionar resultado">
+          <div className="treatment-gallery__dots" aria-label={`Selecionar ${mediaNoun}`}>
             {treatment.media.map((media, index) => (
               <button
                 type="button"
                 data-active={activeIndex === index}
-                aria-label={`Mostrar resultado ${index + 1}`}
+                aria-label={`Mostrar ${mediaNoun} ${index + 1}`}
                 aria-current={activeIndex === index ? 'true' : undefined}
                 onClick={() => navigateToIndex(index)}
                 key={media.id}
@@ -546,7 +550,7 @@ function TreatmentGallery({ treatment }: Pick<TreatmentCardProps, 'treatment'>) 
 function TreatmentCopy({ treatment, onNavigate }: TreatmentCardProps) {
   const { destination } = treatment
   const availableProfessionals = treatment.professionalIds
-    .map((id) => professionals.find((professional) => professional.id === id))
+    .map(getProfessional)
     .filter((professional) => professional !== undefined)
   const exploreControl =
     destination.type === 'page' ? (
@@ -598,8 +602,8 @@ function TreatmentCopy({ treatment, onNavigate }: TreatmentCardProps) {
         <ul>
           {availableProfessionals.map((professional) => (
             <li key={professional.id}>
-              <span aria-hidden="true">{professional.name.replace('Doutor ', 'D')}</span>
-              {professional.name}
+              <strong>{professional.name}</strong>
+              <small>{professionalCredentials(professional)}</small>
             </li>
           ))}
         </ul>
@@ -616,7 +620,7 @@ export function TreatmentCard({ treatment, onNavigate }: TreatmentCardProps) {
 
   return (
     <article
-      className={`treatment-card treatment-card--${treatment.tone} treatment-card--image-${treatment.imageSide}`}
+      className={`treatment-card treatment-card--${treatment.tone} treatment-card--image-${treatment.imageSide} treatment-card--${treatment.id}`}
       data-reveal="up"
     >
       <div className="treatment-card__watermark" aria-hidden="true">

@@ -38,6 +38,7 @@ export const pageSectionIds: Record<SitePage, readonly string[]> = {
   harmonizacao: [
     'inicio',
     'procedimentos',
+    'profissionais',
     'diferenciais-harmonizacao',
     'resultados',
     'avaliacoes',
@@ -46,6 +47,7 @@ export const pageSectionIds: Record<SitePage, readonly string[]> = {
   faloplastia: [
     'inicio',
     'procedimentos',
+    'profissionais',
     'diferenciais-faloplastia',
     'avaliacoes',
     'informacoes',
@@ -53,6 +55,7 @@ export const pageSectionIds: Record<SitePage, readonly string[]> = {
   emagrecimento: [
     'inicio',
     'procedimentos',
+    'profissionais',
     'diferenciais-emagrecimento',
     'resultados',
     'avaliacoes',
@@ -96,9 +99,9 @@ export const pageMetadata: Record<
       'Atendimento individual e reservado para faloplastia, com planejamento e acompanhamento.',
   },
   emagrecimento: {
-    title: 'Emagrecimento multiprofissional | Lisse Clinic',
+    title: 'Acompanhamento nutricional para emagrecimento | Lisse Clinic',
     description:
-      'Acompanhamento multiprofissional para uma jornada de emagrecimento personalizada.',
+      'Avaliação e acompanhamento nutricional individualizados para sua jornada de emagrecimento.',
   },
 }
 
@@ -134,29 +137,52 @@ export const navigationItems = [
 ] as const
 
 export const specialties = [
-  'Harmonização Corporal',
-  'Harmonização Facial',
+  'Harmonização',
+  'Tricologia',
   'Emagrecimento',
   'Estética e Bem-estar',
   'Estética Íntima',
 ] as const
 
 export const treatmentSpecialties = [
-  'Harmonização Corporal',
-  'Harmonização Facial',
+  'Harmonização',
+  'Tricologia',
   'Faloplastia',
   'Emagrecimento',
   'Estética em Geral',
 ] as const
 
+export const clinicContact = {
+  addressLine: 'Av. Miguel Perrela, 663, Sala 201',
+  neighborhoodLine: 'Bairro Castelo, Belo Horizonte/MG',
+  phoneDisplay: '(31) 98556-6396',
+  whatsappNumber: '5531985566396',
+} as const
+
+const whatsappMessages: Record<SitePage | 'estetica' | 'tricologia', string> = {
+  inicio: 'Olá! Gostaria de agendar uma avaliação na Lisse Clinic.',
+  harmonizacao:
+    'Olá! Gostaria de saber mais sobre harmonização facial e corporal e agendar uma avaliação.',
+  faloplastia:
+    'Olá! Gostaria de informações sobre faloplastia e agendar uma avaliação reservada.',
+  emagrecimento:
+    'Olá! Gostaria de saber mais sobre o acompanhamento para emagrecimento e agendar uma avaliação.',
+  estetica:
+    'Olá! Gostaria de saber mais sobre os cuidados de estética em geral da Lisse Clinic.',
+  tricologia:
+    'Olá! Gostaria de saber mais sobre a consulta de tricologia com o Dr. Diego Lacerda e agendar uma avaliação.',
+}
+
+export function getWhatsAppLink(context: SitePage | 'estetica' | 'tricologia' = 'inicio') {
+  return `https://wa.me/${clinicContact.whatsappNumber}?text=${encodeURIComponent(whatsappMessages[context])}`
+}
+
 export const externalLinks = {
-  whatsapp:
-    'https://api.whatsapp.com/message/FQ6YGEHPMXHSM1?autoload=1&app_absent=0&utm_source=ig',
   instagram: 'https://www.instagram.com/lisseclinic/',
   googleReviews:
     'https://www.google.com/search?q=Lisse+Clinic+avalia%C3%A7%C3%B5es',
   googleMaps:
-    'https://www.google.com/maps/place/Castelo,+Belo+Horizonte+-+MG/@-19.8858158,-44.0019741,16z/data=!4m6!3m5!1s0xa691398c04648f:0xf376faf11efebb19!8m2!3d-19.8822196!4d-43.9996134!16s%2Fg%2F1ymtf0ts1?entry=ttu&g_ep=EgoyMDI2MDgwMy4wIKXMDSoASAFQAw%3D%3D',
+    `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent('Av. Miguel Perrela, 663, Castelo, Belo Horizonte, MG, Brasil')}`,
   mapEmbed:
-    'https://www.google.com/maps?q=-19.8822196,-43.9996134&z=16&output=embed',
+    `https://www.google.com/maps?q=${encodeURIComponent('Av. Miguel Perrela, 663, Castelo, Belo Horizonte, MG, Brasil')}&z=17&output=embed`,
 } as const

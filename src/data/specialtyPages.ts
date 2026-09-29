@@ -1,7 +1,8 @@
-import harmonizationBodyResult from '../assets/hero/harmonization-body-result.jpg'
-import harmonizationFaceResult from '../assets/hero/harmonization-face-result.jpg'
+import harmonizationBodyResult from '../assets/hero/harmonization-body-result-sem-data.webp'
+import harmonizationFaceFemale from '../assets/results/facial-female-front-8121.webp'
+import harmonizationFaceMale from '../assets/results/facial-male-front-8831.webp'
 import phaloplastyIcon from '../assets/hero/phaloplasty-icon.png'
-import phaloplastyPhoto from '../assets/treatments/phaloplasty.jpg'
+import phaloplastyPhoto from '../assets/treatments/phaloplasty-consultation-candid.jpg'
 import weightLossEvaluation from '../assets/treatments/weight-loss-multiprofessional-evaluation.jpg'
 import weightLossPhoto from '../assets/treatments/weight-loss.jpg'
 import weightLossFront from '../assets/hero/weight-loss-front.jpg'
@@ -22,11 +23,15 @@ export interface SpecialtyPageConfig {
     description: string
     image: string
     imageAlt: string
+    alternateImage?: string
+    alternateImageAlt?: string
     imageKind: 'wide' | 'consultation' | 'results-collage' | 'icon-card'
     imageLabel?: string
     collageLabel?: string
     secondaryImage?: string
     secondaryImageAlt?: string
+    secondaryAlternateImage?: string
+    secondaryAlternateImageAlt?: string
     secondaryImageLabel?: string
   }
   proceduresHeader: {
@@ -57,9 +62,9 @@ const phaloplastyProcedures: readonly SpecialtyProcedure[] = [
       'Dúvidas sobre o procedimento',
     ],
     image: phaloplastyPhoto,
-    imageAlt: 'Consulta individual e reservada sobre faloplastia na Lisse Clinic',
+    imageAlt: 'Cena ilustrativa de um médico conversando com um paciente sobre faloplastia',
     imageSide: 'left',
-    imagePosition: '43% center',
+    imagePosition: 'center',
   },
   {
     id: 'aumento-peniano',
@@ -75,9 +80,9 @@ const phaloplastyProcedures: readonly SpecialtyProcedure[] = [
       'Acompanhamento',
     ],
     image: phaloplastyPhoto,
-    imageAlt: 'Planejamento personalizado de faloplastia na Lisse Clinic',
+    imageAlt: 'Cena ilustrativa de planejamento de faloplastia entre médico e paciente',
     imageSide: 'right',
-    imagePosition: '57% center',
+    imagePosition: 'center',
   },
 ]
 
@@ -115,19 +120,19 @@ const phaloplastyBenefits: readonly SpecialtyBenefit[] = [
 const weightLossProcedures: readonly SpecialtyProcedure[] = [
   {
     id: 'avaliacao-metabolica',
-    eyebrow: 'Avaliação multiprofissional',
+    eyebrow: 'Avaliação nutricional',
     title: 'Entender seu corpo é o primeiro passo.',
-    highlights: ['Nutricionista', 'Endocrinologista', 'Avaliação hormonal'],
+    highlights: ['Nutricionista', 'Hábitos alimentares', 'Plano individual'],
     description:
       'Uma análise individual considera histórico, hábitos, necessidades e objetivos para orientar uma jornada coerente com a sua realidade.',
     indications: [
       'Obesidade',
       'Compulsão alimentar',
-      'Alterações hormonais',
+      'Mudança de hábitos',
       'Dificuldade para emagrecer',
     ],
     image: weightLossEvaluation,
-    imageAlt: 'Avaliação multiprofissional para emagrecimento na Lisse Clinic',
+    imageAlt: 'Avaliação nutricional individualizada para emagrecimento na Lisse Clinic',
     imageSide: 'left',
     imagePosition: '50% 46%',
   },
@@ -137,7 +142,7 @@ const weightLossProcedures: readonly SpecialtyProcedure[] = [
     title: 'Uma jornada gradual, acompanhada de verdade.',
     highlights: ['Saúde metabólica', 'Novos hábitos', 'Evolução'],
     description:
-      'O acompanhamento integra diferentes especialidades para construir uma estratégia personalizada e ajustar o plano ao longo da evolução.',
+      'O acompanhamento nutricional considera sua rotina para construir uma estratégia personalizada e ajustar o plano ao longo da evolução.',
     indications: [
       'Plano individual',
       'Metas possíveis',
@@ -167,10 +172,10 @@ const weightLossBenefits: readonly SpecialtyBenefit[] = [
     icon: protocolIcon,
   },
   {
-    id: 'equipe-multiprofissional',
-    title: 'Cuidado multiprofissional',
+    id: 'acompanhamento-nutricional',
+    title: 'Acompanhamento nutricional',
     description:
-      'Nutricionista e endocrinologista atuam de forma integrada durante o acompanhamento.',
+      'Orientação nutricional individualizada para apoiar escolhas e acompanhar a evolução.',
     icon: volumeIcon,
   },
   {
@@ -189,8 +194,10 @@ export const specialtyPages: Record<SpecialtyPage, SpecialtyPageConfig> = {
       titleLines: ['Realce seus traços.', 'Valorize seus contornos.'],
       description:
         'Tratamentos personalizados para quem deseja aprimorar a aparência do rosto e do corpo com equilíbrio, naturalidade e respeito às próprias características.',
-      image: harmonizationFaceResult,
-      imageAlt: 'Comparativo de harmonização facial antes e depois',
+      image: harmonizationFaceFemale,
+      imageAlt: 'Comparativo facial feminino antes e depois',
+      alternateImage: harmonizationFaceMale,
+      alternateImageAlt: 'Comparativo facial masculino antes e depois',
       imageLabel: 'Harmonização facial',
       imageKind: 'results-collage',
       collageLabel: 'Resultados de harmonização corporal e facial',
@@ -238,10 +245,10 @@ export const specialtyPages: Record<SpecialtyPage, SpecialtyPageConfig> = {
   },
   emagrecimento: {
     hero: {
-      eyebrow: 'Emagrecimento | Cuidado multiprofissional',
+      eyebrow: 'Emagrecimento | Cuidado nutricional',
       titleLines: ['Uma jornada de saúde,', 'acompanhada de verdade.'],
       description:
-        'Acompanhamento com nutricionista, endocrinologista e avaliação hormonal para compreender seu corpo e construir uma estratégia personalizada.',
+        'Acompanhamento nutricional individualizado para compreender seus hábitos e construir uma estratégia possível para a sua rotina.',
       image: weightLossFront,
       imageAlt: 'Comparativo frontal de evolução corporal, com os dois registros lado a lado',
       imageLabel: 'Vista frontal',
@@ -255,14 +262,14 @@ export const specialtyPages: Record<SpecialtyPage, SpecialtyPageConfig> = {
       eyebrow: 'Sobre o acompanhamento',
       title: 'Um plano que considera sua saúde por inteiro.',
       description:
-        'A jornada começa com uma avaliação individual e reúne diferentes especialidades para orientar escolhas, acompanhar a evolução e construir novos hábitos.',
+        'A jornada começa com uma avaliação nutricional individual para orientar escolhas, acompanhar a evolução e construir novos hábitos.',
     },
     procedures: weightLossProcedures,
     benefits: weightLossBenefits,
     benefitsLabel: 'Diferenciais do acompanhamento para emagrecimento',
     benefitsHeading: 'Os pilares do cuidado',
     benefitsDescription:
-      'Uma jornada construída com olhar individual, equipe integrada e acompanhamento contínuo.',
+      'Uma jornada construída com olhar individual, orientação nutricional e acompanhamento contínuo.',
     benefitsVariant: 'editorial-carousel',
   },
 }

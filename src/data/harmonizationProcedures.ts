@@ -1,6 +1,6 @@
-import facialHarmonization from '../assets/treatments/harmonization-facial-result.jpg'
-import type { HarmonizationProcedure } from '../types/content'
+import facialHarmonization from '../assets/results/facial-female-three-quarter-8437.webp'
 import { photography } from './photography'
+import type { HarmonizationProcedure } from '../types/content'
 
 export const harmonizationProcedures: readonly HarmonizationProcedure[] = [
   {
@@ -21,7 +21,7 @@ export const harmonizationProcedures: readonly HarmonizationProcedure[] = [
       'Flacidez',
     ],
     image: facialHarmonization,
-    imageAlt: 'Avaliação de harmonização facial na Lisse Clinic',
+    imageAlt: 'Comparativo antes e depois de harmonização facial feminina, vista em três quartos',
     imageSide: 'left',
     imagePosition: '50% center',
   },

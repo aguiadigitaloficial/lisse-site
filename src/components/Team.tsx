@@ -10,7 +10,7 @@ import {
 import decorMarkLeft from '../assets/about/decor-mark-left.svg'
 import decorMarkRight from '../assets/about/decor-mark-right.svg'
 import brandMark from '../assets/hero/brand-mark.svg'
-import { externalLinks } from '../data/site'
+import { getWhatsAppLink } from '../data/site'
 import { teamMembers } from '../data/team'
 import type { TeamMember } from '../types/content'
 
@@ -228,7 +228,7 @@ export function Team() {
 
         <a
           className="team-section__cta brand-cta"
-          href={externalLinks.whatsapp}
+          href={getWhatsAppLink()}
           target="_blank"
           rel="noreferrer"
           data-reveal="up"

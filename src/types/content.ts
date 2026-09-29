@@ -36,6 +36,8 @@ export interface ResultCase {
   id: string
   image: string
   alt: string
+  format?: 'facial' | 'portrait'
+  kind?: 'comparison' | 'clinical-record'
   crop?: {
     width: number
     height: number
@@ -67,6 +69,9 @@ export interface TreatmentMedia {
 export interface Professional {
   id: string
   name: string
+  role: string
+  registration?: string
+  specialty?: string
 }
 
 export interface FaqItem {

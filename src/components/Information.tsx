@@ -6,15 +6,15 @@ import addressIcon from '../assets/information/address-icon.png'
 import clockIcon from '../assets/information/clock-icon.png'
 import whatsappIcon from '../assets/information/whatsapp-icon.png'
 import { faqItems } from '../data/faq'
-import { externalLinks } from '../data/site'
+import { clinicContact, externalLinks } from '../data/site'
 
 const locationDetails = [
   {
     id: 'endereco',
     icon: addressIcon,
     label: 'Endereço',
-    value: 'Pampulha — Belo Horizonte, MG',
-    note: 'Endereço completo a confirmar',
+    value: clinicContact.addressLine,
+    note: clinicContact.neighborhoodLine,
   },
   {
     id: 'horarios',
@@ -26,7 +26,7 @@ const locationDetails = [
     id: 'contato',
     icon: whatsappIcon,
     label: 'Contato',
-    value: 'WhatsApp oficial a confirmar',
+    value: clinicContact.phoneDisplay,
   },
 ] as const
 
@@ -158,13 +158,13 @@ export function Information() {
               <span className="brand-cta__mark" aria-hidden="true">
                 <img src={brandMark} alt="" />
               </span>
-              <span className="brand-cta__label">Endereço Google Maps</span>
+              <span className="brand-cta__label">Como chegar</span>
             </a>
 
             <div className="information-location__map">
               <iframe
                 src={externalLinks.mapEmbed}
-                title="Mapa da região indicada para a Lisse Clinic"
+                title="Mapa da Lisse Clinic na Av. Miguel Perrela, 663"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen

@@ -8,20 +8,23 @@ import reception from '../assets/about/reception.png'
 import brandMark from '../assets/hero/brand-mark.svg'
 import separatorMark from '../assets/hero/separator-mark.png'
 import { photography } from '../data/photography'
+import { AnimatedMetric } from './AnimatedMetric'
 
 type AboutClinicProps = {
   onNavigateToTreatments: () => void
 }
 
 type ClinicMetric = {
-  value: string
+  value: number
+  suffix: string
+  decimals?: number
   label: string
 }
 
 const clinicMetrics: readonly ClinicMetric[] = [
-  { value: '500+', label: 'Procedimentos realizados' },
-  { value: '5.0★', label: 'Avaliação no Google' },
-  { value: '100%', label: 'Protocolo personalizado' },
+  { value: 500, suffix: '+', label: 'Procedimentos realizados' },
+  { value: 5, suffix: '★', decimals: 1, label: 'Avaliação no Google' },
+  { value: 100, suffix: '%', label: 'Protocolo personalizado' },
 ]
 
 export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
@@ -83,7 +86,7 @@ export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
           {clinicMetrics.map((metric, index) => (
             <div className="about-clinic__metric-group" key={metric.label}>
               <div className="about-clinic__metric">
-                <strong>{metric.value}</strong>
+                <AnimatedMetric value={metric.value} suffix={metric.suffix} decimals={metric.decimals} />
                 <span>{metric.label}</span>
               </div>
               {index < clinicMetrics.length - 1 && (
@@ -147,7 +150,7 @@ export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
               <h3>Uma clínica completa para os seus cuidados</h3>
               <div className="about-clinic__description">
                 <p>
-                  Localizada na Pampulha, em <strong>Belo Horizonte</strong>, a{' '}
+                  Localizada no bairro Castelo, em <strong>Belo Horizonte</strong>, a{' '}
                   <strong>Lisse Clinic</strong> reúne estética avançada, saúde e
                   bem-estar em <strong>protocolos personalizados</strong>.
                 </p>

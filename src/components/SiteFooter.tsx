@@ -1,7 +1,7 @@
 import brandLogo from '../assets/hero/brand-logo.svg'
 import brandMark from '../assets/hero/brand-mark.svg'
 import addressIcon from '../assets/information/address-icon.png'
-import { externalLinks, getPagePath, type SitePage } from '../data/site'
+import { clinicContact, externalLinks, getPagePath, getWhatsAppLink, type SitePage } from '../data/site'
 
 const highlights = [
   { label: 'Harmonização Corporal', page: 'harmonizacao' },
@@ -116,15 +116,15 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
               <span aria-hidden="true">
                 <img src={addressIcon} alt="" />
               </span>
-              Pampulha — Belo Horizonte, MG
+              {`${clinicContact.addressLine}, ${clinicContact.neighborhoodLine}`}
             </p>
             <p className="site-footer__contact-row">
               <span aria-hidden="true">☎</span>
-              (31) 9999-9999
+              <a href={`tel:+${clinicContact.whatsappNumber}`}>{clinicContact.phoneDisplay}</a>
             </p>
             <a
               className="site-footer__whatsapp brand-cta"
-              href={externalLinks.whatsapp}
+              href={getWhatsAppLink(activePage)}
               target="_blank"
               rel="noreferrer"
             >

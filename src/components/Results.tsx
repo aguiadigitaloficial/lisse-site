@@ -2,8 +2,8 @@ import type { CSSProperties, Ref } from 'react'
 import decorMarkLeft from '../assets/about/decor-mark-left.svg'
 import decorMarkRight from '../assets/about/decor-mark-right.svg'
 import brandMark from '../assets/hero/brand-mark.svg'
-import { externalLinks, type SitePage } from '../data/site'
-import { resultCases } from '../data/results'
+import { getWhatsAppLink, type SitePage } from '../data/site'
+import { harmonizationBodyRecord, resultCases } from '../data/results'
 import { useContinuousCarousel } from '../hooks/useContinuousCarousel'
 import type { ResultCase } from '../types/content'
 
@@ -49,16 +49,15 @@ const harmonizationFacialResults = resultCases.filter(({ id }) =>
     'resultado-07',
     'resultado-08',
     'resultado-09',
-    'resultado-11',
-    'resultado-13',
-    'resultado-14',
-    'resultado-15',
   ].includes(id),
 )
 
-const harmonizationBodyResults = resultCases.filter(({ id }) =>
-  ['resultado-01', 'resultado-02', 'resultado-03'].includes(id),
-)
+const harmonizationBodyResults = [
+  ...resultCases.filter(({ id }) =>
+    ['resultado-01', 'resultado-02', 'resultado-03'].includes(id),
+  ),
+  harmonizationBodyRecord,
+]
 
 const weightLossRows: ResultRowProps[] = [
   {
@@ -91,8 +90,9 @@ const harmonizationRows: ResultRowProps[] = [
 ]
 
 function ResultCard({ result, isClone = false }: ResultCardProps) {
+  const isClinicalRecord = result.kind === 'clinical-record'
   return (
-    <figure className="results-card" role={isClone ? undefined : 'listitem'}>
+    <figure className={`results-card${result.format ? ` results-card--${result.format}` : ''}`} role={isClone ? undefined : 'listitem'}>
       <img
         className={`results-card__image results-card__image--${result.fit ?? 'cover'}`}
         src={result.image}
@@ -102,13 +102,14 @@ function ResultCard({ result, isClone = false }: ResultCardProps) {
         draggable={false}
       />
 
-      <span className="results-card__divider" aria-hidden="true" />
-      <span className="results-card__watermark" aria-hidden="true">
-        <img src={brandMark} alt="" />
-        <span>Lisse</span>
-      </span>
-      <span className="results-card__label results-card__label--before">Antes</span>
-      <span className="results-card__label results-card__label--after">Depois</span>
+      {isClinicalRecord ? (
+        <span className="results-card__label results-card__label--record">Registro clínico</span>
+      ) : (
+        <>
+          <span className="results-card__label results-card__label--before">Antes</span>
+          <span className="results-card__label results-card__label--after">Depois</span>
+        </>
+      )}
     </figure>
   )
 }
@@ -289,7 +290,7 @@ export function Results({ page = 'inicio' }: ResultsProps) {
 
         <a
           className="results-section__cta brand-cta brand-cta--compact"
-          href={externalLinks.whatsapp}
+          href={getWhatsAppLink(page)}
           target="_blank"
           rel="noreferrer"
           data-reveal="up"

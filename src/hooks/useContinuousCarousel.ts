@@ -54,7 +54,7 @@ export function useContinuousCarousel({
   const trackRef = useRef<HTMLDivElement>(null)
   const primaryGroupRef = useRef<HTMLDivElement>(null)
   const cycleWidthRef = useRef(0)
-  const itemStepRef = useRef(0)
+  const itemOffsetsRef = useRef<number[]>([])
   const offsetRef = useRef(0)
   const slowedRef = useRef(false)
   const pausedRef = useRef(false)
@@ -107,13 +107,10 @@ export function useContinuousCarousel({
       cycleWidthRef.current = nextWidth
       const items = primaryGroup.querySelectorAll<HTMLElement>(itemSelector)
 
-      if (items.length > 1) {
-        itemStepRef.current =
-          items[1].getBoundingClientRect().left -
-          items[0].getBoundingClientRect().left
-      } else if (items.length === 1) {
-        itemStepRef.current = items[0].getBoundingClientRect().width
-      }
+      const groupLeft = primaryGroup.getBoundingClientRect().left
+      itemOffsetsRef.current = Array.from(items, (item) =>
+        item.getBoundingClientRect().left - groupLeft,
+      )
 
       setCopyCount(
         prefersReducedMotion
@@ -236,6 +233,43 @@ export function useContinuousCarousel({
     currentSpeedRef.current = 0
   }
 
+  const nearestItemOffset = (position: number) => {
+    const cycleWidth = cycleWidthRef.current
+    const offsets = itemOffsetsRef.current
+    if (!cycleWidth || !offsets.length) return position
+
+    const cycle = Math.floor(position / cycleWidth)
+    const candidates = offsets.flatMap((offset) => [
+      offset + (cycle - 1) * cycleWidth,
+      offset + cycle * cycleWidth,
+      offset + (cycle + 1) * cycleWidth,
+    ])
+    return candidates.reduce((nearest, candidate) =>
+      Math.abs(candidate - position) < Math.abs(nearest - position)
+        ? candidate
+        : nearest,
+    )
+  }
+
+  const adjacentItemOffset = (position: number, direction: 1 | -1) => {
+    const cycleWidth = cycleWidthRef.current
+    const offsets = itemOffsetsRef.current
+    if (!cycleWidth || !offsets.length) return position
+
+    const nearest = nearestItemOffset(position)
+    const normalized = normalizeOffset(nearest, cycleWidth)
+    const currentIndex = offsets.reduce((bestIndex, offset, index) =>
+      Math.abs(offset - normalized) < Math.abs(offsets[bestIndex] - normalized)
+        ? index
+        : bestIndex,
+    0)
+    const nextIndex = (currentIndex + direction + offsets.length) % offsets.length
+    let target = offsets[nextIndex]
+    if (direction === 1 && nextIndex <= currentIndex) target += cycleWidth
+    if (direction === -1 && nextIndex >= currentIndex) target -= cycleWidth
+    return nearest - normalized + target
+  }
+
   const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if (!interactive || prefersReducedMotion) return
     if (event.pointerType === 'mouse' && event.button !== 0) return
@@ -298,10 +332,9 @@ export function useContinuousCarousel({
     dragRef.current = null
     setIsDragging(false)
 
-    const itemStep = itemStepRef.current
     const cycleWidth = cycleWidthRef.current
 
-    if (!drag.moved || !itemStep || !cycleWidth) {
+    if (!drag.moved || !itemOffsetsRef.current.length || !cycleWidth) {
       modeRef.current = 'auto'
       currentSpeedRef.current = 0
       return
@@ -309,8 +342,14 @@ export function useContinuousCarousel({
 
     const velocity = cancelled ? 0 : clamp(drag.velocity, -1.25, 1.25)
     const projectedOffset = offsetRef.current - velocity * 190
-    const snappedOffset = Math.round(projectedOffset / itemStep) * itemStep
-    const maximumSettleDistance = itemStep * 1.25
+    const snappedOffset = nearestItemOffset(projectedOffset)
+    const maximumSettleDistance = Math.max(
+      ...itemOffsetsRef.current.map((offset, index, offsets) =>
+        index < offsets.length - 1
+          ? offsets[index + 1] - offset
+          : cycleWidth - offset,
+      ),
+    ) * 1.25
     const settleDistance = clamp(
       snappedOffset - offsetRef.current,
       -maximumSettleDistance,
@@ -330,13 +369,12 @@ export function useContinuousCarousel({
 
     event.preventDefault()
     const keyboardDirection = event.key === 'ArrowRight' ? 1 : -1
-    const itemStep = itemStepRef.current
-
-    if (!itemStep) return
+    if (!itemOffsetsRef.current.length) return
 
     if (prefersReducedMotion) {
+      const current = event.currentTarget.scrollLeft
       event.currentTarget.scrollBy({
-        left: keyboardDirection * itemStep,
+        left: adjacentItemOffset(current, keyboardDirection) - current,
         behavior: 'smooth',
       })
       return
@@ -345,10 +383,7 @@ export function useContinuousCarousel({
     settleRef.current = null
     dragRef.current = null
     setIsDragging(false)
-    beginSettle(
-      Math.round(offsetRef.current / itemStep) * itemStep +
-        keyboardDirection * itemStep,
-    )
+    beginSettle(adjacentItemOffset(offsetRef.current, keyboardDirection))
   }
 
   return {

@@ -6,8 +6,9 @@ import decorRingCenter from '../assets/treatments/decor-ring-center.svg'
 import decorRingLeft from '../assets/treatments/decor-ring-left.svg'
 import decorRingRight from '../assets/treatments/decor-ring-right.svg'
 import brandMark from '../assets/hero/brand-mark.svg'
+import { getProfessional, professionalCredentials } from '../data/professionals'
 import {
-  externalLinks,
+  getWhatsAppLink,
   treatmentSpecialties,
   type SpecialtyPage,
 } from '../data/site'
@@ -20,6 +21,8 @@ type TreatmentsProps = {
 }
 
 export function Treatments({ onNavigate }: TreatmentsProps) {
+  const trichologist = getProfessional('diego')
+
   return (
     <section
       id="tratamentos"
@@ -58,6 +61,23 @@ export function Treatments({ onNavigate }: TreatmentsProps) {
               key={treatment.id}
             />
           ))}
+          {trichologist && (
+            <article className="trichology-card" aria-labelledby="trichology-title" data-reveal="up">
+              <div className="trichology-card__intro">
+                <p className="trichology-card__eyebrow">Tricologia</p>
+                <h3 id="trichology-title">Cuidado atento aos seus cabelos e couro cabeludo.</h3>
+              </div>
+              <div className="trichology-card__detail">
+                <p>Avaliação individual para entender suas queixas e orientar os próximos passos.</p>
+                <p className="trichology-card__professional-label">Profissional disponível</p>
+                <p className="trichology-card__professional-name">{trichologist.name}</p>
+                <p className="trichology-card__credentials">{professionalCredentials(trichologist)}</p>
+                <a href={getWhatsAppLink('tricologia')} target="_blank" rel="noreferrer" aria-label="Conversar sobre tricologia pelo WhatsApp">
+                  Conversar sobre tricologia <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </article>
+          )}
         </div>
 
         <div className="treatments-section__cta" data-reveal="up">
@@ -67,7 +87,7 @@ export function Treatments({ onNavigate }: TreatmentsProps) {
           </div>
           <a
             className="treatments-section__cta-button brand-cta brand-cta--compact"
-            href={externalLinks.whatsapp}
+            href={getWhatsAppLink()}
             target="_blank"
             rel="noreferrer"
           >

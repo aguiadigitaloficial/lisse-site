@@ -1,11 +1,11 @@
 import bodyContouring from '../assets/treatments/body-contouring.jpg'
 import facialHarmonization from '../assets/treatments/facial-harmonization.jpg'
 import generalAesthetics from '../assets/treatments/general-aesthetics.jpg'
-import phaloplasty from '../assets/treatments/phaloplasty.jpg'
+import phaloplasty from '../assets/treatments/phaloplasty-consultation-candid.jpg'
 import weightLoss from '../assets/treatments/weight-loss.jpg'
 import { resultCases } from './results'
 import type { Treatment } from '../types/content'
-import { externalLinks } from './site'
+import { getWhatsAppLink } from './site'
 
 const resultMedia = (ids: string[]) =>
   resultCases
@@ -27,7 +27,7 @@ export const treatments: readonly Treatment[] = [
     tags: ['Volume', 'Proporção', 'Firmeza', 'Definição'],
     image: bodyContouring,
     media: resultMedia(['resultado-01', 'resultado-02', 'resultado-03']),
-    professionalIds: ['doctor-1', 'doctor-2'],
+    professionalIds: ['yeiko', 'diogo'],
     tone: 'dark-gradient',
     imageSide: 'left',
     hasMedallion: true,
@@ -45,9 +45,9 @@ export const treatments: readonly Treatment[] = [
     media: institutionalMedia(
       'faloplastia-institucional',
       phaloplasty,
-      'Atendimento individual e reservado para faloplastia na Lisse Clinic',
+      'Cena ilustrativa de um médico conversando com um paciente sobre faloplastia',
     ),
-    professionalIds: ['doctor-2', 'doctor-4'],
+    professionalIds: ['yeiko'],
     tone: 'cream',
     imageSide: 'right',
     destination: { type: 'page', page: 'faloplastia' },
@@ -68,12 +68,8 @@ export const treatments: readonly Treatment[] = [
       'resultado-07',
       'resultado-08',
       'resultado-09',
-      'resultado-11',
-      'resultado-13',
-      'resultado-14',
-      'resultado-15',
     ]),
-    professionalIds: ['doctor-1', 'doctor-3'],
+    professionalIds: ['yeiko', 'diogo'],
     tone: 'white',
     imageSide: 'left',
     destination: { type: 'page', page: 'harmonizacao' },
@@ -82,13 +78,13 @@ export const treatments: readonly Treatment[] = [
     id: 'emagrecimento',
     eyebrow: 'Emagrecimento',
     title: 'Uma jornada completa, acompanhada de verdade.',
-    highlights: ['Nutricionista', 'Endocrinologista', 'Avaliação hormonal'],
+    highlights: ['Avaliação nutricional', 'Plano individual', 'Acompanhamento'],
     description:
-      'Acompanhamento multiprofissional para emagrecimento, saúde metabólica e construção de novos hábitos.',
-    tags: ['Plano individual', 'Evolução', 'Saúde metabólica'],
+      'Acompanhamento nutricional individualizado para emagrecimento e construção de novos hábitos.',
+    tags: ['Plano individual', 'Evolução', 'Novos hábitos'],
     image: weightLoss,
     media: resultMedia(['resultado-10', 'resultado-12']),
-    professionalIds: ['doctor-3', 'doctor-4'],
+    professionalIds: ['fernanda'],
     tone: 'gold',
     imageSide: 'right',
     destination: { type: 'page', page: 'emagrecimento' },
@@ -107,10 +103,10 @@ export const treatments: readonly Treatment[] = [
       generalAesthetics,
       'Cuidado estético e de bem-estar na Lisse Clinic',
     ),
-    professionalIds: ['doctor-1', 'doctor-4'],
+    professionalIds: ['diogo'],
     tone: 'dark',
     imageSide: 'left',
     hasMedallion: true,
-    destination: { type: 'external', href: externalLinks.whatsapp },
+    destination: { type: 'external', href: getWhatsAppLink('estetica') },
   },
 ]

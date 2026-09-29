@@ -19,7 +19,7 @@ import {
   reviews,
   weightLossReviews,
 } from '../data/reviews'
-import { externalLinks, type SitePage } from '../data/site'
+import { externalLinks, getWhatsAppLink, type SitePage } from '../data/site'
 import type { Review } from '../types/content'
 
 type DragState = {
@@ -520,7 +520,7 @@ export function Reviews({ page = 'inicio' }: ReviewsProps) {
 
         <a
           className="reviews-section__cta brand-cta brand-cta--compact"
-          href={externalLinks.whatsapp}
+          href={getWhatsAppLink(page)}
           target="_blank"
           rel="noreferrer"
           data-reveal={isEditorialPage ? undefined : 'up'}

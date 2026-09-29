@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import brandLogo from '../assets/hero/brand-logo.svg'
 import brandMark from '../assets/hero/brand-mark.svg'
-import { getPagePath, navigationItems, type SitePage } from '../data/site'
+import { getPagePath, getWhatsAppLink, navigationItems, type SitePage } from '../data/site'
 
 type HeaderProps = {
   activePage: SitePage
@@ -58,12 +58,17 @@ export function Header({ activePage, onNavigate }: HeaderProps) {
           ))}
         </nav>
 
-        <span className="contact-pill brand-cta" aria-disabled="true">
+        <a
+          className="contact-pill brand-cta"
+          href={getWhatsAppLink(activePage)}
+          target="_blank"
+          rel="noreferrer"
+        >
           <span className="contact-pill__mark brand-cta__mark" aria-hidden="true">
             <img src={brandMark} alt="" />
           </span>
           <span className="brand-cta__label">Entre em contato</span>
-        </span>
+        </a>
 
         <button
           className="menu-toggle"
@@ -98,7 +103,15 @@ export function Header({ activePage, onNavigate }: HeaderProps) {
             {item.label}
           </a>
         ))}
-        <span aria-disabled="true">Entre em contato</span>
+        <a
+          className="mobile-nav__contact"
+          href={getWhatsAppLink(activePage)}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => setMenuOpen(false)}
+        >
+          Entre em contato
+        </a>
       </nav>
     </header>
   )

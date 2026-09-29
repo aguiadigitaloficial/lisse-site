@@ -3,7 +3,7 @@ import backgroundMark from '../assets/hero/background-mark.png'
 import brandMark from '../assets/hero/brand-mark.svg'
 import harmonizationMedallion from '../assets/hero/harmonization-medallion.png'
 import { photography } from '../data/photography'
-import { externalLinks, specialties, type SitePage } from '../data/site'
+import { getWhatsAppLink, specialties, type SitePage } from '../data/site'
 import { specialtyPages } from '../data/specialtyPages'
 import { Header } from './Header'
 import { SpecialtyRail } from './SpecialtyRail'
@@ -113,10 +113,17 @@ export function Hero({ page, onNavigate }: HeroProps) {
                   <figure className="hero__harmonization-result-card hero__harmonization-result-card--face">
                     <div className="hero__harmonization-result-media">
                       <img
-                        className="hero__harmonization-result-photo"
+                        className="hero__harmonization-result-photo hero__harmonization-result-photo--primary"
                         src={specialtyConfig.hero.image}
                         alt={specialtyConfig.hero.imageAlt}
                       />
+                      {specialtyConfig.hero.alternateImage && (
+                        <img
+                          className="hero__harmonization-result-photo hero__harmonization-result-photo--alternate"
+                          src={specialtyConfig.hero.alternateImage}
+                          alt={specialtyConfig.hero.alternateImageAlt ?? ''}
+                        />
+                      )}
                     </div>
                     <figcaption className="hero__harmonization-result-label hero__harmonization-result-label--face">
                       {specialtyConfig.hero.imageLabel}
@@ -125,10 +132,17 @@ export function Hero({ page, onNavigate }: HeroProps) {
                   <figure className="hero__harmonization-result-card hero__harmonization-result-card--body">
                     <div className="hero__harmonization-result-media">
                       <img
-                        className="hero__harmonization-result-photo"
+                        className="hero__harmonization-result-photo hero__harmonization-result-photo--primary"
                         src={collageImage}
                         alt={specialtyConfig.hero.secondaryImageAlt}
                       />
+                      {specialtyConfig.hero.secondaryAlternateImage && (
+                        <img
+                          className="hero__harmonization-result-photo hero__harmonization-result-photo--alternate"
+                          src={specialtyConfig.hero.secondaryAlternateImage}
+                          alt={specialtyConfig.hero.secondaryAlternateImageAlt ?? ''}
+                        />
+                      )}
                     </div>
                     <figcaption className="hero__harmonization-result-label hero__harmonization-result-label--body">
                       {specialtyConfig.hero.secondaryImageLabel}
@@ -219,7 +233,7 @@ export function Hero({ page, onNavigate }: HeroProps) {
           <div className="hero__actions" aria-label="Ações principais">
             <a
               className="button button--primary"
-              href={externalLinks.whatsapp}
+              href={getWhatsAppLink(page)}
               target="_blank"
               rel="noreferrer"
             >

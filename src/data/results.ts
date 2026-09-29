@@ -1,17 +1,16 @@
-import result01 from '../assets/results/result-01.jpg'
-import result02 from '../assets/results/result-02.jpg'
-import result03 from '../assets/results/result-03.jpg'
-import result04 from '../assets/results/result-04.jpg'
-import result05 from '../assets/results/result-05.jpg'
-import result06 from '../assets/results/result-06.jpg'
-import result07 from '../assets/results/result-07.jpg'
-import result08 from '../assets/results/result-08.jpg'
-import result09 from '../assets/results/result-09.jpg'
+import result01 from '../assets/results/result-01-sem-data.webp'
+import result02 from '../assets/results/result-02-sem-data.webp'
+import result03 from '../assets/results/result-03-sem-data.webp'
+import result04 from '../assets/results/facial-female-front-8121.webp'
+import result05 from '../assets/results/facial-male-front-8831.webp'
+import result06 from '../assets/results/facial-female-three-quarter-8437.webp'
+import result07 from '../assets/results/facial-male-front-7339.webp'
+import result08 from '../assets/results/facial-female-profile-8122.webp'
+import result09 from '../assets/results/facial-female-front-7360.webp'
 import result10 from '../assets/results/result-10.jpg'
-import result11 from '../assets/results/result-11.jpg'
 import result12 from '../assets/results/result-12.jpg'
+import harmonizationBodyMale from '../assets/hero/harmonization-body-male.webp'
 import type { ResultCase } from '../types/content'
-import { photography } from './photography'
 
 export const resultCases: ResultCase[] = [
   {
@@ -32,32 +31,38 @@ export const resultCases: ResultCase[] = [
   {
     id: 'resultado-04',
     image: result04,
-    alt: 'Comparativo antes e depois de harmonização facial, vista de perfil',
+    alt: 'Comparativo antes e depois de harmonização facial feminina, vista frontal',
+    format: 'facial',
   },
   {
     id: 'resultado-05',
     image: result05,
-    alt: 'Comparativo antes e depois de harmonização facial, vista frontal',
+    alt: 'Comparativo antes e depois de harmonização facial masculina, vista frontal',
+    format: 'facial',
   },
   {
     id: 'resultado-06',
     image: result06,
-    alt: 'Comparativo antes e depois de harmonização facial, vista lateral',
+    alt: 'Comparativo antes e depois de harmonização facial feminina, vista em três quartos',
+    format: 'facial',
   },
   {
     id: 'resultado-07',
     image: result07,
-    alt: 'Comparativo antes e depois de harmonização facial do nariz, vista lateral',
+    alt: 'Comparativo antes e depois de harmonização facial masculina, vista frontal',
+    format: 'facial',
   },
   {
     id: 'resultado-08',
     image: result08,
-    alt: 'Comparativo antes e depois de harmonização facial dos lábios, vista lateral',
+    alt: 'Comparativo antes e depois de harmonização facial feminina, vista de perfil',
+    format: 'facial',
   },
   {
     id: 'resultado-09',
     image: result09,
-    alt: 'Comparativo antes e depois de harmonização facial, vista em três quartos',
+    alt: 'Comparativo antes e depois de harmonização facial feminina, vista frontal',
+    format: 'facial',
   },
   {
     id: 'resultado-10',
@@ -65,31 +70,16 @@ export const resultCases: ResultCase[] = [
     alt: 'Comparativo frontal antes e depois de uma jornada de emagrecimento',
   },
   {
-    id: 'resultado-11',
-    image: result11,
-    alt: 'Comparativo antes e depois de harmonização facial masculina, vista frontal',
-  },
-  {
     id: 'resultado-12',
     image: result12,
     alt: 'Comparativo lateral antes e depois de uma jornada de emagrecimento',
   },
-  {
-    id: 'resultado-13',
-    image: photography.results.facialFrontal,
-    alt: 'Comparativo antes e depois de harmonização facial, vista frontal',
-    fit: 'contain',
-  },
-  {
-    id: 'resultado-14',
-    image: photography.results.facialFullFace,
-    alt: 'Comparativo antes e depois de harmonização facial, enquadramento frontal',
-    fit: 'contain',
-  },
-  {
-    id: 'resultado-15',
-    image: photography.results.facialProfile,
-    alt: 'Comparativo antes e depois de harmonização facial, vista de perfil',
-    fit: 'contain',
-  },
 ]
+
+export const harmonizationBodyRecord: ResultCase = {
+  id: 'corporal-masculina-registro',
+  image: harmonizationBodyMale,
+  alt: 'Registro clínico individual de panturrilhas masculinas, sem comparação de antes e depois',
+  format: 'portrait',
+  kind: 'clinical-record',
+}
