@@ -20,7 +20,7 @@ const locationDetails = [
     id: 'horarios',
     icon: clockIcon,
     label: 'Horário de atendimento',
-    value: 'Dias e horários a confirmar',
+    value: 'Atendimento mediante agendamento',
   },
   {
     id: 'contato',
