@@ -3,12 +3,14 @@ import separatorMark from '../assets/hero/separator-mark.png'
 
 type SpecialtyRailProps = {
   items: readonly string[]
+  destinations?: Readonly<Record<string, string>>
   reveal?: boolean
   variant?: 'default' | 'hero'
 }
 
 export function SpecialtyRail({
   items,
+  destinations,
   reveal = false,
   variant = 'default',
 }: SpecialtyRailProps) {
@@ -21,6 +23,8 @@ export function SpecialtyRail({
   const setPauseReason = (reason: string, active: boolean) => {
     if (active) pauseReasons.current.add(reason)
     else pauseReasons.current.delete(reason)
+    const rail = viewportRef.current?.parentElement
+    if (rail) rail.dataset.motionPaused = String(pauseReasons.current.size > 0)
     if (pauseReasons.current.size) animationRef.current?.pause()
     else animationRef.current?.play()
   }
@@ -34,6 +38,9 @@ export function SpecialtyRail({
     let measuredWidth = 0
     let frame = 0
     const syncPlayback = () => {
+      if (viewport.parentElement) {
+        viewport.parentElement.dataset.motionPaused = String(pauseReasons.current.size > 0 || preference.matches)
+      }
       if (pauseReasons.current.size || preference.matches) animationRef.current?.pause()
       else animationRef.current?.play()
     }
@@ -42,6 +49,7 @@ export function SpecialtyRail({
         animationRef.current?.cancel()
         animationRef.current = null
         measuredWidth = 0
+        syncPlayback()
         return
       }
       const width = group.getBoundingClientRect().width
@@ -51,7 +59,7 @@ export function SpecialtyRail({
       const cyclePosition = Number(previous?.currentTime ?? 0) / oldDuration
       previous?.cancel()
       measuredWidth = width
-      const duration = Math.max(24000, width / 24 * 1000)
+      const duration = Math.max(20000, width / 30 * 1000)
       const animation = track.animate([
         { transform: 'translate3d(0, 0, 0)' },
         { transform: `translate3d(${-width}px, 0, 0)` },
@@ -93,10 +101,16 @@ export function SpecialtyRail({
     <div
       className={`specialty-rail specialty-rail--${variant} specialty-rail--animated`}
       aria-label="Especialidades"
+      data-motion-paused="true"
       data-reveal={reveal ? 'fade' : undefined}
       onMouseEnter={() => setPauseReason('hover', true)}
       onMouseLeave={() => setPauseReason('hover', false)}
-      onFocusCapture={() => setPauseReason('focus', true)}
+      onFocusCapture={(event) => {
+        setPauseReason('focus', true)
+        if (event.target.matches(':focus-visible') && animationRef.current) {
+          animationRef.current.currentTime = 0
+        }
+      }}
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setPauseReason('focus', false)
       }}
@@ -105,13 +119,16 @@ export function SpecialtyRail({
       onPointerCancel={() => setPauseReason('touch', false)}
       onPointerLeave={() => setPauseReason('touch', false)}
     >
+      <div className="specialty-rail__light" aria-hidden="true" />
       <div className="specialty-rail__viewport" ref={viewportRef} tabIndex={0} aria-label="Lista de especialidades">
         <div className="specialty-rail__track" ref={trackRef}>
           {[0, 1, 2].map((copy) => (
             <div className="specialty-rail__group" key={copy} aria-hidden={copy > 0 ? true : undefined}>
               {items.map((item) => (
                 <div className="specialty-rail__item" key={item}>
-                  <span>{item}</span>
+                  {destinations?.[item] ? (
+                    <a href={destinations[item]} tabIndex={copy > 0 ? -1 : undefined}>{item}</a>
+                  ) : <span>{item}</span>}
                   <img src={separatorMark} alt="" aria-hidden="true" />
                 </div>
               ))}

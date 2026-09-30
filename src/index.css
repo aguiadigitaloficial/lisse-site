@@ -1813,6 +1813,7 @@ h3 {
 
 /* Treatments */
 .treatments-section {
+  --treatments-rail-height: 64px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -1823,12 +1824,13 @@ h3 {
 .treatments-section > .specialty-rail {
   position: relative;
   z-index: 5;
+  height: var(--treatments-rail-height);
 }
 
 .treatments-section__decor {
   position: absolute;
   z-index: -1;
-  inset: 80px 0 0;
+  inset: var(--treatments-rail-height) 0 0;
   overflow: hidden;
   pointer-events: none;
 }
@@ -2420,10 +2422,6 @@ h3 {
 }
 
 @media (max-width: 700px) {
-  .treatments-section__decor {
-    inset: 64px 0 0;
-  }
-
   .treatments-section__inner {
     width: calc(100% - 24px);
     padding: 48px 0 58px;
@@ -9549,9 +9547,32 @@ h3 {
 }
 
 .specialty-rail__viewport {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-width: 0;
   overflow: hidden;
+}
+
+.specialty-rail__light {
+  position: absolute;
+  z-index: 0;
+  inset: -70% auto -70% -45%;
+  width: 42%;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent, rgb(226 192 144 / 15%) 50%, transparent);
+  animation: specialty-rail-light 14s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.specialty-rail[data-motion-paused="false"] .specialty-rail__light {
+  animation-play-state: running;
+}
+
+@keyframes specialty-rail-light {
+  0%, 12% { transform: translateX(0) skewX(-16deg); opacity: 0; }
+  24% { opacity: 1; }
+  68%, 100% { transform: translateX(360%) skewX(-16deg); opacity: 0; }
 }
 
 .specialty-rail--animated .specialty-rail__track {
@@ -9564,28 +9585,62 @@ h3 {
 }
 
 .specialty-rail__group {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: center;
-  justify-content: space-around;
   flex: 0 0 auto;
-  min-width: calc(100vw - 48px);
+  width: max(960px, calc(100vw - 48px));
 }
 
 .specialty-rail--animated .specialty-rail__item {
+  position: relative;
   display: flex;
-  flex: 0 0 auto;
+  min-height: 60px;
   align-items: center;
-  gap: 28px;
-  padding-inline: 14px;
+  justify-content: center;
+  gap: 0;
+  padding-inline: 24px;
   font-size: 14px;
   font-weight: 400;
   white-space: nowrap;
 }
 
 .specialty-rail--animated .specialty-rail__item img {
+  position: absolute;
+  top: 50%;
+  right: 0;
   width: 32px;
   height: 32px;
   object-fit: contain;
+  transform: translate(50%, -50%);
+  pointer-events: none;
+}
+
+.specialty-rail--animated .specialty-rail__item a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 6px;
+  border-radius: 4px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 6px;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.specialty-rail--animated .specialty-rail__item a:hover {
+  color: #eedbc1;
+  text-decoration-color: currentColor;
+}
+
+.specialty-rail--animated .specialty-rail__item a:focus-visible {
+  outline: 2px solid #e3ceb0;
+  outline-offset: 2px;
+}
+
+.treatments-section__cards > article[id] {
+  scroll-margin-top: 100px;
 }
 
 .specialty-rail__viewport:focus-visible {
@@ -9594,6 +9649,11 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .specialty-rail__light {
+    display: none;
+    animation: none;
+  }
+
   .specialty-rail__viewport {
     overflow-x: auto;
     scrollbar-width: thin;

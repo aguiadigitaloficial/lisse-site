@@ -3,6 +3,7 @@ import harmonizationFaceFemale from '../assets/results/facial-female-front-8121.
 import harmonizationFaceMale from '../assets/results/facial-male-front-8831.webp'
 import phaloplastyIcon from '../assets/hero/phaloplasty-icon.png'
 import phaloplastyPhoto from '../assets/treatments/phaloplasty-consultation-candid.jpg'
+import phaloplastyPrivateCare from '../assets/treatments/phaloplasty-private-care.webp'
 import weightLossEvaluation from '../assets/treatments/weight-loss-multiprofessional-evaluation.jpg'
 import weightLossPhoto from '../assets/treatments/weight-loss.jpg'
 import weightLossFront from '../assets/hero/weight-loss-front.jpg'
@@ -79,8 +80,8 @@ const phaloplastyProcedures: readonly SpecialtyProcedure[] = [
       'Orientação médica',
       'Acompanhamento',
     ],
-    image: phaloplastyPhoto,
-    imageAlt: 'Cena ilustrativa de planejamento de faloplastia entre médico e paciente',
+    image: phaloplastyPrivateCare,
+    imageAlt: 'Imagem ilustrativa de um ambiente clínico reservado, preparado para atendimento individual',
     imageSide: 'right',
     imagePosition: 'center',
   },

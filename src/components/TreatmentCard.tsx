@@ -570,7 +570,7 @@ function TreatmentCopy({ treatment, onNavigate }: TreatmentCardProps) {
         rel="noreferrer"
         aria-label={`Conversar sobre ${treatment.eyebrow} pelo WhatsApp`}
       >
-        Explorar especialidade
+        Saiba mais pelo WhatsApp
       </a>
     )
 
@@ -620,6 +620,7 @@ export function TreatmentCard({ treatment, onNavigate }: TreatmentCardProps) {
 
   return (
     <article
+      id={`tratamento-${treatment.id}`}
       className={`treatment-card treatment-card--${treatment.tone} treatment-card--image-${treatment.imageSide} treatment-card--${treatment.id}`}
       data-reveal="up"
     >

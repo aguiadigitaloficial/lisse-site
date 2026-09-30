@@ -6,7 +6,7 @@ import { photography } from '../data/photography'
 import { getWhatsAppLink, specialties, type SitePage } from '../data/site'
 import { specialtyPages } from '../data/specialtyPages'
 import { Header } from './Header'
-import { SpecialtyRail } from './SpecialtyRail'
+import { HeroSpecialtyBand } from './HeroSpecialtyBand'
 
 type HeroProps = {
   page: SitePage
@@ -266,7 +266,7 @@ export function Hero({ page, onNavigate }: HeroProps) {
         </div>
       </div>
 
-      <SpecialtyRail items={specialties} variant="hero" />
+      <HeroSpecialtyBand items={specialties} />
 
     </section>
   )

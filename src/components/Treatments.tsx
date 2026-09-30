@@ -20,6 +20,14 @@ type TreatmentsProps = {
   onNavigate: (page: SpecialtyPage) => void
 }
 
+const railDestinations = {
+  'Harmonização': '#tratamento-harmonizacao-corporal',
+  'Tricologia': '#tratamento-tricologia',
+  'Faloplastia': '#tratamento-faloplastia',
+  'Emagrecimento': '#tratamento-emagrecimento',
+  'Estética em Geral': '#tratamento-estetica-em-geral',
+} as const
+
 export function Treatments({ onNavigate }: TreatmentsProps) {
   const trichologist = getProfessional('diego')
 
@@ -31,7 +39,7 @@ export function Treatments({ onNavigate }: TreatmentsProps) {
     >
       <span id="equipe" className="treatments-section__anchor" aria-hidden="true" />
       <span id="resultados" className="treatments-section__anchor" aria-hidden="true" />
-      <SpecialtyRail items={treatmentSpecialties} reveal variant="hero" />
+      <SpecialtyRail items={treatmentSpecialties} destinations={railDestinations} reveal variant="hero" />
 
       <div className="treatments-section__decor" aria-hidden="true">
         <img className="treatments-section__ring treatments-section__ring--left" src={decorRingLeft} alt="" />
@@ -62,7 +70,7 @@ export function Treatments({ onNavigate }: TreatmentsProps) {
             />
           ))}
           {trichologist && (
-            <article className="trichology-card" aria-labelledby="trichology-title" data-reveal="up">
+            <article id="tratamento-tricologia" className="trichology-card" aria-labelledby="trichology-title" data-reveal="up">
               <div className="trichology-card__intro">
                 <p className="trichology-card__eyebrow">Tricologia</p>
                 <h3 id="trichology-title">Cuidado atento aos seus cabelos e couro cabeludo.</h3>
