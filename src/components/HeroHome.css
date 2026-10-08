@@ -201,6 +201,35 @@
   to { opacity: 1; }
 }
 
+/* Use the full editorial column on desktop without moving the portrait.
+   Let the heading flow naturally instead of stacking its two text spans. */
+@media (min-width: 1000px) {
+  .hero.hero--home .hero__content {
+    width: 100%;
+  }
+
+  .hero.hero--home .hero__copy,
+  .hero.hero--home h1 {
+    max-width: none;
+  }
+
+  .hero.hero--home h1 {
+    display: block;
+  }
+
+  .hero.hero--home h1 span {
+    display: inline;
+  }
+
+  .hero.hero--home h1 span:first-child::after {
+    content: ' ';
+  }
+
+  .hero.hero--home .hero__description {
+    max-width: 620px;
+  }
+}
+
 @media (max-width: 999px) {
   .hero.hero--home .hero__stage {
     grid-template-columns: minmax(0, 1fr);
