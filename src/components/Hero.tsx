@@ -207,10 +207,10 @@ export function Hero({ page, onNavigate, specialtyConfig, imageProps }: HeroProp
               <picture>
                 <img
                   src={photography.owner.hero.large}
-                  srcSet={`${photography.owner.hero.small} 480w, ${photography.owner.hero.medium} 640w, ${photography.owner.hero.large} 853w`}
+                  srcSet={`${photography.owner.hero.small} 480w, ${photography.owner.hero.medium} 640w, ${photography.owner.hero.large} 900w`}
                   sizes="(max-width: 480px) 100vw, (max-width: 999px) 480px, (max-width: 1440px) 42vw, 605px"
-                  width={853}
-                  height={1280}
+                  width={900}
+                  height={1600}
                   alt={photography.owner.hero.alt}
                   fetchPriority="high"
                   decoding="async"

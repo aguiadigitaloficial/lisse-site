@@ -81,8 +81,9 @@
   background: transparent;
   box-shadow: none;
   animation: none;
-  -webkit-mask: url('../assets/hero/kelly-editorial-mask.svg') center / 100% 100% no-repeat;
-  mask: url('../assets/hero/kelly-editorial-mask.svg') center / 100% 100% no-repeat;
+  /* The new standing portrait needs no silhouette mask from the previous photo. */
+  -webkit-mask: linear-gradient(to bottom, transparent, #000 10%);
+  mask: linear-gradient(to bottom, transparent, #000 10%);
 }
 
 /* Blend over the photograph's edge, including the near hand, rather than
@@ -127,7 +128,7 @@
   height: 100%;
   aspect-ratio: auto;
   object-fit: cover;
-  object-position: 50% 35%;
+  object-position: 50% 20%;
   filter: none;
 }
 
@@ -274,7 +275,7 @@
     height: 100%;
     aspect-ratio: auto;
     object-fit: cover;
-    object-position: 50% 35%;
+    object-position: 50% 20%;
   }
 
   .hero.hero--home .hero__visual::before {

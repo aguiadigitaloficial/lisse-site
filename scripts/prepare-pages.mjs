@@ -17,7 +17,7 @@ function preload(prefix, widths, sizes) {
   return `<link rel="preload" as="image" fetchpriority="high" imagesrcset="${srcset}" imagesizes="${sizes}" />`
 }
 const preloads = {
-  inicio: preload('kelly-editorial-hero', [480, 640, 853], '(max-width: 480px) 100vw, (max-width: 999px) 480px, (max-width: 1440px) 42vw, 605px'),
+  inicio: preload('kelly-brunette-hero', [480, 640, 900], '(max-width: 480px) 100vw, (max-width: 999px) 480px, (max-width: 1440px) 42vw, 605px'),
   harmonizacao: preload('facial-female-front-8121', [320, 640, 960, 1200], '(max-width: 999px) 48vw, 380px'),
   faloplastia: '',
   emagrecimento: preload('weight-loss-front', [320, 640, 960], '(max-width: 999px) 48vw, 380px'),

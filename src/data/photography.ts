@@ -4,9 +4,9 @@ import facialResultFrontal from '../assets/photography/facial-result-frontal.jpg
 import facialResultFullFace from '../assets/photography/facial-result-full-face.jpg'
 import facialResultProfile from '../assets/photography/facial-result-profile.jpg'
 import harmonizationBodyApplication from '../assets/photography/harmonization-body-application.jpg'
-import kellyEditorialHero480 from '../assets/photography/kelly-editorial-hero-480.webp'
-import kellyEditorialHero640 from '../assets/photography/kelly-editorial-hero-640.webp'
-import kellyEditorialHero853 from '../assets/photography/kelly-editorial-hero-853.webp'
+import kellyEditorialHero480 from '../assets/photography/kelly-brunette-hero-480.webp'
+import kellyEditorialHero640 from '../assets/photography/kelly-brunette-hero-640.webp'
+import kellyEditorialHero900 from '../assets/photography/kelly-brunette-hero-900.webp'
 import kellyTreatmentRoom from '../assets/photography/kelly-treatment-room.jpg'
 
 export const photography = {
@@ -14,8 +14,8 @@ export const photography = {
     hero: {
       small: kellyEditorialHero480,
       medium: kellyEditorialHero640,
-      large: kellyEditorialHero853,
-      alt: 'Kelly Trindade sentada em um sofá, em um ambiente claro',
+      large: kellyEditorialHero900,
+      alt: 'Kelly Trindade, de cabelos castanhos e roupa branca, no consultório da Lisse Clinic',
     },
     portrait: {
       image: kellyTreatmentRoom,
