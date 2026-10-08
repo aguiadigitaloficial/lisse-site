@@ -2,6 +2,7 @@ import decorMarkLeft from '../assets/about/decor-mark-left.svg'
 import decorMarkRight from '../assets/about/decor-mark-right.svg'
 import type { SpecialtyPage } from '../data/site'
 import { specialtyPages } from '../data/specialtyPages'
+import { specialtyImageProps } from '../data/specialtyImageVariants'
 import type { SpecialtyProcedure } from '../types/content'
 
 type ProcedureCardProps = {
@@ -17,6 +18,7 @@ function ProcedureCard({ procedure }: ProcedureCardProps) {
       <div className="harmonization-procedure__image">
         <img
           src={procedure.image}
+          {...specialtyImageProps(procedure.image, '(max-width: 999px) 90vw, 550px')}
           alt={procedure.imageAlt}
           loading="lazy"
           decoding="async"

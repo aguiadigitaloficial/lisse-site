@@ -4,7 +4,7 @@ import harmonizationFaceMale from '../assets/results/facial-male-front-8831.webp
 import phaloplastyIcon from '../assets/hero/phaloplasty-icon.png'
 import phaloplastyPhoto from '../assets/treatments/phaloplasty-consultation-candid.jpg'
 import phaloplastyPrivateCare from '../assets/treatments/phaloplasty-private-care.webp'
-import weightLossEvaluation from '../assets/treatments/weight-loss-multiprofessional-evaluation.jpg'
+import weightLossEvaluation from '../assets/treatments/bioimpedance-assessment.svg'
 import weightLossPhoto from '../assets/treatments/weight-loss.jpg'
 import weightLossFront from '../assets/hero/weight-loss-front.jpg'
 import weightLossSide from '../assets/hero/weight-loss-side.jpg'
@@ -133,7 +133,7 @@ const weightLossProcedures: readonly SpecialtyProcedure[] = [
       'Dificuldade para emagrecer',
     ],
     image: weightLossEvaluation,
-    imageAlt: 'Avaliação nutricional individualizada para emagrecimento na Lisse Clinic',
+    imageAlt: 'Ilustração conceitual de avaliação da composição corporal por bioimpedância, com silhueta sobre uma plataforma e eletrodos nas mãos',
     imageSide: 'left',
     imagePosition: '50% 46%',
   },

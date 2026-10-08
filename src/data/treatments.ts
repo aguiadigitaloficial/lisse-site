@@ -1,8 +1,8 @@
 import bodyContouring from '../assets/treatments/body-contouring.jpg'
 import facialHarmonization from '../assets/treatments/facial-harmonization.jpg'
 import generalAesthetics from '../assets/treatments/general-aesthetics.jpg'
-import phaloplasty from '../assets/treatments/phaloplasty-consultation-candid.jpg'
-import weightLoss from '../assets/treatments/weight-loss.jpg'
+import phaloplasty from '../assets/treatments/phaloplasty-doctor-portrait.webp'
+import weightLoss from '../assets/treatments/weight-loss-nutritionist-portrait.webp'
 import { resultCases } from './results'
 import type { Treatment } from '../types/content'
 import { getWhatsAppLink } from './site'
@@ -45,7 +45,7 @@ export const treatments: readonly Treatment[] = [
     media: institutionalMedia(
       'faloplastia-institucional',
       phaloplasty,
-      'Cena ilustrativa de um médico conversando com um paciente sobre faloplastia',
+      'Médico da Lisse Clinic sentado na recepção',
     ),
     professionalIds: ['yeiko'],
     tone: 'cream',
@@ -83,7 +83,11 @@ export const treatments: readonly Treatment[] = [
       'Acompanhamento nutricional individualizado para emagrecimento e construção de novos hábitos.',
     tags: ['Plano individual', 'Evolução', 'Novos hábitos'],
     image: weightLoss,
-    media: resultMedia(['resultado-10', 'resultado-12']),
+    media: institutionalMedia(
+      'emagrecimento-nutricionista',
+      weightLoss,
+      'Nutricionista da Lisse Clinic no consultório',
+    ),
     professionalIds: ['fernanda'],
     tone: 'gold',
     imageSide: 'right',

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" fill="none">
+  <title>Avaliação da composição corporal</title>
+  <desc>Ilustração conceitual de uma pessoa sobre uma plataforma de bioimpedância, com eletrodos nas mãos e um monitor sem resultados numéricos.</desc>
+  <defs>
+    <linearGradient id="room" x1="40" y1="0" x2="640" y2="640" gradientUnits="userSpaceOnUse"><stop stop-color="#F8F5EF"/><stop offset="1" stop-color="#E6DDD0"/></linearGradient>
+    <linearGradient id="body" x1="204" y1="142" x2="318" y2="530" gradientUnits="userSpaceOnUse"><stop stop-color="#C8B599" stop-opacity=".6"/><stop offset=".5" stop-color="#A58D70" stop-opacity=".25"/><stop offset="1" stop-color="#D8CCBC" stop-opacity=".6"/></linearGradient>
+    <linearGradient id="metal" x1="370" y1="328" x2="395" y2="524" gradientUnits="userSpaceOnUse"><stop stop-color="#FAF9F5"/><stop offset=".5" stop-color="#C5BBAE"/><stop offset="1" stop-color="#F7F3EC"/></linearGradient>
+    <radialGradient id="floor"><stop stop-color="#776650" stop-opacity=".2"/><stop offset="1" stop-color="#776650" stop-opacity="0"/></radialGradient>
+    <clipPath id="figure"><path d="M244 185C244 201 233 207 216 212C200 216 192 225 188 247L174 312L170 360Q170 372 180 373Q190 374 191 362L200 316L215 276L218 332L207 382L214 443L218 516Q216 526 208 531L232 531Q240 526 238 516L239 444L248 387L257 444L258 516Q256 526 264 531L288 531Q280 526 278 516L282 443L289 382L278 332L281 276L296 316L305 362Q306 374 316 373Q326 372 322 360L318 312L304 247C300 225 292 216 276 212C259 207 252 201 252 185Z"/></clipPath>
+  </defs>
+  <path fill="url(#room)" d="M0 0h640v640H0z"/>
+  <path d="M78 544V213C78 113 152 72 248 72C344 72 418 113 418 213V544" fill="#FAF8F3" fill-opacity=".75" stroke="#DED4C6" stroke-width="2"/>
+  <path d="M94 535V214C94 125 162 88 248 88" stroke="white" stroke-width="3" stroke-opacity=".85"/>
+  <ellipse cx="312" cy="553" rx="246" ry="43" fill="url(#floor)"/>
+  <g stroke="#B8A890" stroke-width="1" opacity=".55">
+    <path d="M126 189h13m-13 34h7m-7 34h13m-13 34h7m-7 34h13m-13 34h7m-7 34h13m-13 34h7m-7 34h13m-13 34h7"/>
+    <path d="M126 189v306"/>
+  </g>
+  <path d="M157 529Q248 503 339 529L345 544Q247 572 151 544Z" fill="#B6A58F"/>
+  <ellipse cx="248" cy="531" rx="91" ry="22" fill="#FCFAF6" stroke="#BFAF99" stroke-width="1.5"/>
+  <ellipse cx="222" cy="531" rx="15" ry="5" fill="#B9B3A7"/>
+  <ellipse cx="277" cy="531" rx="15" ry="5" fill="#B9B3A7"/>
+  <ellipse cx="248" cy="163" rx="28" ry="35" fill="url(#body)" stroke="#A78D6D" stroke-width="1.6"/>
+  <path d="M244 185C244 201 233 207 216 212C200 216 192 225 188 247L174 312L170 360Q170 372 180 373Q190 374 191 362L200 316L215 276L218 332L207 382L214 443L218 516Q216 526 208 531L232 531Q240 526 238 516L239 444L248 387L257 444L258 516Q256 526 264 531L288 531Q280 526 278 516L282 443L289 382L278 332L281 276L296 316L305 362Q306 374 316 373Q326 372 322 360L318 312L304 247C300 225 292 216 276 212C259 207 252 201 252 185" fill="url(#body)" stroke="#A78D6D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g clip-path="url(#figure)" stroke="#A58D70" stroke-opacity=".3" stroke-width="1">
+    <path d="M162 240Q248 261 334 240M162 270Q248 291 334 270M162 300Q248 321 334 300M162 330Q248 351 334 330M162 360Q248 381 334 360M162 390Q248 411 334 390M162 420Q248 441 334 420M162 450Q248 471 334 450M162 480Q248 501 334 480"/>
+    <path d="M227 203Q246 310 224 530M269 203Q250 310 272 530"/>
+  </g>
+  <path d="M213 234Q248 247 283 234M219 334Q248 343 277 334" stroke="#977C5C" stroke-opacity=".55" stroke-width="1.5"/>
+  <g stroke="#766956" stroke-width="3" stroke-linecap="round">
+    <path d="M176 348l7 25M309 348l8 25"/>
+  </g>
+  <path d="M178 365C125 424 154 489 374 513M315 365C343 387 362 439 377 512" stroke="#A69A87" stroke-width="1.5"/>
+  <path d="M375 324h15v205h-15z" fill="url(#metal)" stroke="#B9AE9D"/>
+  <ellipse cx="383" cy="534" rx="43" ry="10" fill="#D1C6B6" stroke="#B2A28C"/>
+  <path d="M345 248h104q11 0 11 11v61q0 11-11 11H345q-11 0-11-11v-61q0-11 11-11Z" fill="#F8F5EF" stroke="#B6A58D" stroke-width="1.5"/>
+  <rect x="344" y="258" width="106" height="61" rx="5" fill="#48483F"/>
+  <g stroke="#DED1B9" stroke-width="2" stroke-linecap="round">
+    <path d="M357 274h35M357 284h24M357 294h30M413 298v-13m9 13v-22m9 22v-31"/>
+  </g>
+  <circle cx="440" cy="312" r="1.5" fill="#C5B188"/>
+  <path d="M293 225h58l23-22h164" stroke="#A58D70" stroke-width="1"/>
+  <circle cx="293" cy="225" r="3.5" fill="#A58D70"/>
+  <text x="376" y="189" fill="#514A40" font-family="Arial,sans-serif" font-size="17">Composição corporal</text>
+  <text x="320" y="595" text-anchor="middle" fill="#746A5B" font-family="Arial,sans-serif" font-size="12" letter-spacing=".3">Bioimpedância · Ilustração conceitual</text>
+</svg>

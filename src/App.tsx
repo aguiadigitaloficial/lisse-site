@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
+import { Header } from './components/Header'
+import { FloatingWhatsApp } from './components/FloatingWhatsApp'
 import { SiteFooter } from './components/SiteFooter'
 import {
   findSitePageFromPathname,
@@ -13,7 +15,9 @@ import {
 } from './data/site'
 import { useScrollReveal } from './hooks/useScrollReveal'
 import { HomePage } from './pages/HomePage'
-import { SpecialtyLandingPage } from './pages/SpecialtyLandingPage'
+const SpecialtyLandingPage = lazy(() => import('./pages/SpecialtyLandingPage').then(
+  (module) => ({ default: module.SpecialtyLandingPage }),
+))
 
 type PendingNavigation = {
   page: SitePage
@@ -67,6 +71,8 @@ function updatePageMetadata(page: SitePage) {
 
   document.title = metadata.title
   description?.setAttribute('content', metadata.description)
+  document.querySelector('meta[property="og:title"]')?.setAttribute('content', metadata.title)
+  document.querySelector('meta[property="og:description"]')?.setAttribute('content', metadata.description)
 
   if (!canonical) {
     canonical = document.createElement('link')
@@ -82,6 +88,9 @@ function App() {
     () => normalizeLocation().page,
   )
   const activePageRef = useRef(activePage)
+  const [readyPage, setReadyPage] = useState<SitePage | null>(null)
+  const pageReady = activePage === 'inicio' || readyPage === activePage
+  const handlePageReady = useCallback((page: SitePage) => setReadyPage(page), [])
   const mainRef = useRef<HTMLElement>(null)
   const pendingNavigationRef = useRef<PendingNavigation | null>(null)
   const scrollJobRef = useRef(0)
@@ -89,7 +98,7 @@ function App() {
   const lastHandledLocationRef = useRef(getLocationKey())
   const pageTransitionTimerRef = useRef<number | null>(null)
 
-  useScrollReveal(activePage)
+  useScrollReveal(`${activePage}:${pageReady}`)
 
   const scheduleTargetScroll = useCallback(
     (page: SitePage, requestedTargetId: string, smooth: boolean, focusMain: boolean) => {
@@ -138,6 +147,8 @@ function App() {
 
   useLayoutEffect(() => {
     activePageRef.current = activePage
+    // Keep deep-link scrolling until the lazy route has actually mounted.
+    if (!pageReady) return
 
     const pendingNavigation = pendingNavigationRef.current
     if (pendingNavigation?.page === activePage) {
@@ -176,7 +187,7 @@ function App() {
         false,
       )
     }
-  }, [activePage, scheduleTargetScroll])
+  }, [activePage, pageReady, scheduleTargetScroll])
 
   useEffect(() => {
     updatePageMetadata(activePage)
@@ -271,6 +282,7 @@ function App() {
 
   return (
     <>
+      <Header key={activePage} activePage={activePage} onNavigate={navigate} />
       <main ref={mainRef} tabIndex={-1}>
         {activePage === 'inicio' ? (
           <HomePage
@@ -278,10 +290,13 @@ function App() {
             onNavigateToSpecialty={navigateToSpecialty}
           />
         ) : (
-          <SpecialtyLandingPage page={activePage} onNavigate={navigate} />
+          <Suspense fallback={<div className="route-loading" role="status">Carregando a especialidade…</div>}>
+            <SpecialtyLandingPage page={activePage} onNavigate={navigate} onReady={handlePageReady} />
+          </Suspense>
         )}
       </main>
       <SiteFooter activePage={activePage} onNavigate={navigate} />
+      <FloatingWhatsApp page={activePage} />
     </>
   )
 }

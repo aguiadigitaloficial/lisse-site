@@ -184,6 +184,7 @@ export function getWhatsAppLink(context: SitePage | 'estetica' | 'tricologia' = 
 }
 
 export const externalLinks = {
+  agency: 'https://aguiadigital.com',
   instagram: 'https://www.instagram.com/lisseclinic/',
   googleReviews:
     'https://www.google.com/search?q=Lisse+Clinic+avalia%C3%A7%C3%B5es',

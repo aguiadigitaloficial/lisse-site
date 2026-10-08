@@ -1,0 +1,9 @@
+/* Same families and weights; two variable WOFF2 files replace seven static files. */
+@font-face {
+  font-family: 'Cormorant Infant'; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url('@fontsource-variable/cormorant-infant/files/cormorant-infant-latin-wght-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter'; font-style: normal; font-weight: 300 600; font-display: swap;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');
+}

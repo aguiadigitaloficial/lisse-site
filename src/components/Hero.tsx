@@ -4,28 +4,50 @@ import brandMark from '../assets/hero/brand-mark.svg'
 import harmonizationMedallion from '../assets/hero/harmonization-medallion.png'
 import { photography } from '../data/photography'
 import { getWhatsAppLink, specialties, type SitePage } from '../data/site'
-import { specialtyPages } from '../data/specialtyPages'
-import { Header } from './Header'
+import type { SpecialtyPageConfig } from '../data/specialtyPages'
+import type { createImageProps } from '../utils/responsiveImage'
 import { HeroSpecialtyBand } from './HeroSpecialtyBand'
+import './HeroHome.css'
 
 type HeroProps = {
   page: SitePage
   onNavigate: (page: SitePage, targetId: string) => void
+  specialtyConfig?: SpecialtyPageConfig
+  imageProps?: ReturnType<typeof createImageProps>
 }
 
-export function Hero({ page, onNavigate }: HeroProps) {
+export function Hero({ page, onNavigate, specialtyConfig, imageProps }: HeroProps) {
   const heroRef = useRef<HTMLElement>(null)
   const sealMotionRef = useRef<HTMLImageElement>(null)
+  const visibleRef = useRef(true)
   const specialtyPage = page === 'inicio' ? null : page
-  const specialtyConfig = specialtyPage
-    ? specialtyPages[specialtyPage]
-    : null
   const collageImage =
     specialtyConfig?.hero.imageKind === 'results-collage' &&
     specialtyConfig.hero.secondaryImage
       ? specialtyConfig.hero.secondaryImage
       : null
   const iconCard = specialtyConfig?.hero.imageKind === 'icon-card'
+
+  useEffect(() => {
+    const hero = heroRef.current
+    if (!hero) return
+    let inView = true
+    const update = () => {
+      visibleRef.current = inView && !document.hidden
+      hero.dataset.motionPaused = String(!visibleRef.current)
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+      update()
+    })
+    observer.observe(hero)
+    document.addEventListener('visibilitychange', update)
+    update()
+    return () => {
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', update)
+    }
+  }, [page])
 
   useEffect(() => {
     const hero = heroRef.current
@@ -57,7 +79,7 @@ export function Hero({ page, onNavigate }: HeroProps) {
     }
 
     const requestUpdate = () => {
-      if (frameId) return
+      if (frameId || !visibleRef.current) return
       frameId = window.requestAnimationFrame(updateSeal)
     }
 
@@ -79,8 +101,6 @@ export function Hero({ page, onNavigate }: HeroProps) {
       className={`hero hero--${page}${specialtyPage ? ' hero--specialty' : ' hero--home'}${collageImage ? ' hero--results-collage' : ''}`}
       aria-labelledby="hero-title"
     >
-      <Header activePage={page} onNavigate={onNavigate} />
-
       <div className="hero__stage">
         <div className="hero__visual">
           {specialtyConfig && specialtyPage ? (
@@ -115,12 +135,16 @@ export function Hero({ page, onNavigate }: HeroProps) {
                       <img
                         className="hero__harmonization-result-photo hero__harmonization-result-photo--primary"
                         src={specialtyConfig.hero.image}
+                        {...imageProps?.(specialtyConfig.hero.image, '(max-width: 999px) 48vw, 380px')}
+                        fetchPriority="high"
                         alt={specialtyConfig.hero.imageAlt}
                       />
                       {specialtyConfig.hero.alternateImage && (
                         <img
                           className="hero__harmonization-result-photo hero__harmonization-result-photo--alternate"
                           src={specialtyConfig.hero.alternateImage}
+                          {...imageProps?.(specialtyConfig.hero.alternateImage, '(max-width: 999px) 48vw, 380px')}
+                          fetchPriority="low"
                           alt={specialtyConfig.hero.alternateImageAlt ?? ''}
                         />
                       )}
@@ -134,12 +158,15 @@ export function Hero({ page, onNavigate }: HeroProps) {
                       <img
                         className="hero__harmonization-result-photo hero__harmonization-result-photo--primary"
                         src={collageImage}
+                        {...imageProps?.(collageImage, '(max-width: 999px) 48vw, 380px')}
                         alt={specialtyConfig.hero.secondaryImageAlt}
                       />
                       {specialtyConfig.hero.secondaryAlternateImage && (
                         <img
                           className="hero__harmonization-result-photo hero__harmonization-result-photo--alternate"
                           src={specialtyConfig.hero.secondaryAlternateImage}
+                          {...imageProps?.(specialtyConfig.hero.secondaryAlternateImage, '(max-width: 999px) 48vw, 380px')}
+                          fetchPriority="low"
                           alt={specialtyConfig.hero.secondaryAlternateImageAlt ?? ''}
                         />
                       )}
@@ -165,6 +192,8 @@ export function Hero({ page, onNavigate }: HeroProps) {
                   <img
                     className={`hero__harmonization-photo hero__specialty-photo hero__specialty-photo--${specialtyConfig.hero.imageKind}`}
                     src={specialtyConfig.hero.image}
+                    {...imageProps?.(specialtyConfig.hero.image, '(max-width: 999px) 90vw, 640px')}
+                    fetchPriority="high"
                     alt={specialtyConfig.hero.imageAlt}
                   />
                   <span className="hero__harmonization-medallion">
@@ -176,16 +205,12 @@ export function Hero({ page, onNavigate }: HeroProps) {
           ) : (
             <figure className="hero__home-portrait">
               <picture>
-                <source
-                  media="(max-width: 700px)"
-                  srcSet={photography.owner.hero.small}
-                />
-                <source
-                  media="(max-width: 1100px)"
-                  srcSet={photography.owner.hero.medium}
-                />
                 <img
                   src={photography.owner.hero.large}
+                  srcSet={`${photography.owner.hero.small} 480w, ${photography.owner.hero.medium} 640w, ${photography.owner.hero.large} 853w`}
+                  sizes="(max-width: 480px) 100vw, (max-width: 999px) 480px, (max-width: 1440px) 42vw, 605px"
+                  width={853}
+                  height={1280}
                   alt={photography.owner.hero.alt}
                   fetchPriority="high"
                   decoding="async"

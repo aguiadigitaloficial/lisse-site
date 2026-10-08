@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" source(".");
 
 :root {
   color-scheme: light;
@@ -11,6 +11,7 @@
   --ink-dark: #38332f;
   --gold: #a18462;
   --taupe: #8f877a;
+  --site-header-height: 87px;
 }
 
 * {
@@ -19,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--site-header-height);
   background: var(--cream);
 }
 
@@ -51,6 +53,14 @@ body {
 
 main:focus {
   outline: none;
+}
+
+.route-loading {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 120px 24px;
+  color: var(--ink-dark);
 }
 
 main > section[id]:not(#inicio) {
@@ -88,8 +98,8 @@ h3 {
 }
 
 .site-header {
-  position: absolute;
-  z-index: 30;
+  position: fixed;
+  z-index: 100;
   top: 0;
   right: 0;
   left: 0;
@@ -781,6 +791,9 @@ h3 {
     right: 24px;
     display: flex;
     width: min(320px, calc(100% - 48px));
+    max-height: calc(100dvh - var(--site-header-height) - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     flex-direction: column;
     padding: 18px;
     gap: 4px;
@@ -963,6 +976,10 @@ h3 {
 }
 
 @media (max-width: 700px) {
+  :root {
+    --site-header-height: 73px;
+  }
+
   .site-header,
   .site-header__inner {
     min-height: 72px;
@@ -1403,6 +1420,7 @@ h3 {
 }
 
 .about-clinic__metric-separator img {
+  object-fit: contain;
   position: absolute;
   top: -26.14%;
   left: -124.75%;
@@ -2258,7 +2276,7 @@ h3 {
   justify-content: center;
   padding: 7px 18px;
   border-radius: 999px;
-  background: #958b7c;
+  background: #756b5e;
   color: #fff;
   gap: 19px;
   font-size: 0.96rem;
@@ -3809,7 +3827,7 @@ h3 {
 
 .reviews-section__eyebrow {
   margin: 0 0 20px;
-  color: var(--gold);
+  color: #806343;
   font-size: 0.96rem;
   font-weight: 500;
   letter-spacing: 0.035em;
@@ -4094,7 +4112,7 @@ h3 {
   padding: 6px 14px;
   border-radius: 999px;
   background: #fff3e7;
-  color: var(--gold);
+  color: #806343;
   font-size: 0.69rem;
   font-weight: 400;
   line-height: 1;
@@ -4140,17 +4158,27 @@ h3 {
 }
 
 .reviews-carousel__dot {
-  width: 8px;
-  height: 8px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 999px;
-  background: #ded1bf;
+  background: transparent;
   cursor: pointer;
+}
+
+.reviews-carousel__dot::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: inherit;
+  background: #ded1bf;
   transition: width 220ms ease, background-color 220ms ease;
 }
 
-.reviews-carousel__dot[data-active="true"] {
+.reviews-carousel__dot[data-active="true"]::before {
   width: 24px;
   background: var(--gold);
 }
@@ -4169,7 +4197,7 @@ h3 {
   margin: 28px auto 0;
   padding: 8px 24px;
   border-radius: 999px;
-  background: var(--taupe);
+  background: #756b5e;
   color: #fff;
   gap: 16px;
   font-size: 1.05rem;
@@ -5292,6 +5320,9 @@ h3 {
 }
 
 .site-footer__column a:not(.site-footer__whatsapp) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
   transition: color 200ms ease;
 }
 
@@ -5419,6 +5450,30 @@ h3 {
     width: min(440px, calc(100% - 48px));
     grid-template-columns: minmax(0, 1fr);
     gap: 32px;
+  }
+}
+
+.site-footer__bottom a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-underline-offset: 4px;
+}
+
+.site-footer__bottom a:hover {
+  text-decoration: underline;
+}
+
+.site-footer__bottom a:focus-visible {
+  outline: 2px solid #d0ae86;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (pointer: coarse) {
+  .site-footer__column a:not(.site-footer__whatsapp),
+  .site-footer__instagram {
+    min-height: 44px;
   }
 }
 
@@ -6951,6 +7006,10 @@ h3 {
 .hero--harmonizacao .hero__harmonization-result-photo--alternate {
   opacity: 0;
   animation: hero-result-alternate 12s linear infinite;
+}
+
+.hero[data-motion-paused="true"] .hero__harmonization-result-photo {
+  animation-play-state: paused;
 }
 
 .hero--harmonizacao .hero__harmonization-result-card--body .hero__harmonization-result-photo--primary {
@@ -8486,6 +8545,69 @@ h3 {
   .treatment-gallery__slide[data-media-kind='result']
   > img {
   object-fit: contain;
+}
+
+/* Keep the real portrait uncropped, scoped to the homepage phalloplasty card. */
+.treatment-card.treatment-card--faloplastia .treatment-card__image {
+  width: min(100%, 300px);
+  margin-inline: auto;
+  grid-template-rows: auto;
+  align-self: center;
+}
+
+.treatment-card--faloplastia .treatment-gallery__frame {
+  aspect-ratio: 3 / 4;
+}
+
+.treatment-card--faloplastia .treatment-gallery__viewport {
+  cursor: default;
+}
+
+.treatment-card--faloplastia .treatment-gallery__slide > img {
+  object-fit: contain;
+  object-position: center;
+  filter: brightness(1.02) saturate(0.96);
+}
+
+.treatment-card--faloplastia .treatment-gallery__slide::after {
+  content: none;
+}
+
+@media (max-width: 700px) {
+  .treatment-card.treatment-card--faloplastia .treatment-card__image {
+    width: min(100%, 280px);
+  }
+}
+
+/* Single nutritionist portrait, only in the homepage weight-loss card. */
+.treatment-card.treatment-card--emagrecimento .treatment-card__image {
+  width: min(100%, 300px);
+  margin-inline: auto;
+  grid-template-rows: auto;
+  align-self: center;
+}
+
+.treatment-card--emagrecimento .treatment-gallery__frame {
+  aspect-ratio: 3 / 4;
+}
+
+.treatment-card--emagrecimento .treatment-gallery__viewport {
+  cursor: default;
+}
+
+.treatment-card--emagrecimento .treatment-gallery__slide > img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.treatment-card--emagrecimento .treatment-gallery__slide::after {
+  content: none;
+}
+
+@media (max-width: 700px) {
+  .treatment-card.treatment-card--emagrecimento .treatment-card__image {
+    width: min(100%, 280px);
+  }
 }
 
 .treatment-gallery__label {

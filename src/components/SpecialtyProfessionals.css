@@ -1,0 +1,95 @@
+/* Scoped to specialty pages; homepage professional sheets remain independent. */
+.specialty-professionals .specialty-professionals__inner {
+  display: block;
+  width: min(1120px, 100%);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.specialty-professionals .specialty-professionals__heading {
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.specialty-professionals .specialty-professionals__heading > p {
+  color: #625b53;
+  font-size: 14px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.specialty-professionals .specialty-professionals__heading h2 {
+  color: #38332f;
+  font-family: 'Cormorant Infant', serif;
+  font-size: clamp(30px, 3vw, 38px);
+  line-height: 1.15;
+}
+
+.specialty-professionals .specialty-professionals__list {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+.specialty-professionals .specialty-professionals__list--single {
+  max-width: 560px;
+}
+
+.specialty-professionals__list li.specialty-professionals__profile {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid rgb(143 135 122 / 20%);
+  border-radius: 16px;
+  background: #fcfaf7;
+  text-align: left;
+}
+
+.specialty-professionals__profile .specialty-professionals__portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.specialty-professionals__identity {
+  min-width: 0;
+  font-family: Inter, sans-serif;
+  overflow-wrap: break-word;
+}
+
+.specialty-professionals__profile .specialty-professionals__name {
+  margin: 0 0 10px;
+  color: #38332f;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.specialty-professionals__profile .specialty-professionals__credentials {
+  margin: 4px 0 0;
+  color: #625b53;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (min-width: 700px) {
+  .specialty-professionals .specialty-professionals__list:not(.specialty-professionals__list--single) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .specialty-professionals__list li.specialty-professionals__profile {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .specialty-professionals .specialty-professionals__list:not(.specialty-professionals__list--single) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -7,3 +7,7 @@ dist
 .chrome-check
 .codex-tools
 vite*.log
+.env
+.env.*
+!.env.example
+.vercel

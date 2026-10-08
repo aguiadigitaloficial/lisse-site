@@ -137,9 +137,12 @@ export function useContinuousCarousel({
 
     let previousTime = performance.now()
     let animationFrame = 0
+    let visible = false
     const directionMultiplier = direction === 'left' ? 1 : -1
 
     const animate = (currentTime: number) => {
+      animationFrame = 0
+      if (!visible || document.hidden) return
       const elapsed = Math.min((currentTime - previousTime) / 1000, 0.05)
       previousTime = currentTime
 
@@ -192,10 +195,25 @@ export function useContinuousCarousel({
       animationFrame = window.requestAnimationFrame(animate)
     }
 
-    animationFrame = window.requestAnimationFrame(animate)
+    const syncPlayback = () => {
+      window.cancelAnimationFrame(animationFrame)
+      animationFrame = 0
+      if (visible && !document.hidden) {
+        previousTime = performance.now()
+        animationFrame = window.requestAnimationFrame(animate)
+      }
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting
+      syncPlayback()
+    })
+    if (viewportRef.current) observer.observe(viewportRef.current)
+    document.addEventListener('visibilitychange', syncPlayback)
 
     return () => {
       window.cancelAnimationFrame(animationFrame)
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', syncPlayback)
       track.style.removeProperty('transform')
     }
   }, [baseSpeed, direction, prefersReducedMotion, slowFactor])

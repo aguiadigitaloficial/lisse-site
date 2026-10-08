@@ -9,6 +9,7 @@ import brandMark from '../assets/hero/brand-mark.svg'
 import separatorMark from '../assets/hero/separator-mark.png'
 import { photography } from '../data/photography'
 import { AnimatedMetric } from './AnimatedMetric'
+import { homeImageProps } from '../data/homeImageVariants'
 
 type AboutClinicProps = {
   onNavigateToTreatments: () => void
@@ -103,6 +104,7 @@ export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
             <figure className="about-clinic__tile about-clinic__tile--reception">
               <img
                 src={reception}
+                {...homeImageProps(reception, '(max-width: 700px) 48vw, 280px')}
                 alt="Recepção da Lisse Clinic"
                 loading="lazy"
                 decoding="async"
@@ -111,6 +113,7 @@ export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
             <figure className="about-clinic__tile about-clinic__tile--consultation">
               <img
                 src={photography.owner.portrait.image}
+                {...homeImageProps(photography.owner.portrait.image, '(max-width: 700px) 48vw, 280px')}
                 alt={photography.owner.portrait.alt}
                 loading="lazy"
                 decoding="async"
@@ -119,6 +122,7 @@ export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
             <figure className="about-clinic__tile about-clinic__tile--conversation">
               <img
                 src={photography.clinic.bodyCare.image}
+                {...homeImageProps(photography.clinic.bodyCare.image, '(max-width: 700px) 48vw, 280px')}
                 alt={photography.clinic.bodyCare.alt}
                 loading="lazy"
                 decoding="async"
@@ -127,6 +131,7 @@ export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
             <figure className="about-clinic__tile about-clinic__tile--facial">
               <img
                 src={photography.clinic.facialTreatment.image}
+                {...homeImageProps(photography.clinic.facialTreatment.image, '(max-width: 700px) 48vw, 280px')}
                 alt={photography.clinic.facialTreatment.alt}
                 loading="lazy"
                 decoding="async"
@@ -135,6 +140,8 @@ export function AboutClinic({ onNavigateToTreatments }: AboutClinicProps) {
             <img
               className="about-clinic__mosaic-mark"
               src={mosaicMark}
+              {...homeImageProps(mosaicMark, '110px')}
+              loading="lazy"
               alt=""
               aria-hidden="true"
             />

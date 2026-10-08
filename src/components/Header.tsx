@@ -88,6 +88,7 @@ export function Header({ activePage, onNavigate }: HeaderProps) {
         id="mobile-menu"
         className="mobile-nav"
         data-open={menuOpen}
+        inert={!menuOpen}
         aria-label="Navegação mobile"
       >
         {navigationItems.map((item) => (

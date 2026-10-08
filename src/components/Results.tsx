@@ -6,6 +6,7 @@ import { getWhatsAppLink, type SitePage } from '../data/site'
 import { harmonizationBodyRecord, resultCases } from '../data/results'
 import { useContinuousCarousel } from '../hooks/useContinuousCarousel'
 import type { ResultCase } from '../types/content'
+import { specialtyImageProps } from '../data/specialtyImageVariants'
 
 type ResultCardProps = {
   result: ResultCase
@@ -96,6 +97,7 @@ function ResultCard({ result, isClone = false }: ResultCardProps) {
       <img
         className={`results-card__image results-card__image--${result.fit ?? 'cover'}`}
         src={result.image}
+        {...specialtyImageProps(result.image, '(max-width: 700px) 85vw, 480px')}
         alt={isClone ? '' : result.alt}
         loading="lazy"
         decoding="async"

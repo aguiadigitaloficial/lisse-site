@@ -37,7 +37,7 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
                 onNavigate('inicio', 'inicio')
               }}
             >
-              <img src={brandLogo} alt="Lisse Clinic" />
+              <img src={brandLogo} alt="Lisse Clinic" width="240" height="43" loading="lazy" />
             </a>
             <p>
               Estética, saúde e bem-estar com cuidado individual e protocolos
@@ -47,7 +47,7 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
               className="site-footer__instagram"
               href={externalLinks.instagram}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="Acessar o Instagram da Lisse Clinic"
             >
               <span aria-hidden="true">
@@ -116,7 +116,9 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
               <span aria-hidden="true">
                 <img src={addressIcon} alt="" />
               </span>
-              {`${clinicContact.addressLine}, ${clinicContact.neighborhoodLine}`}
+              <a href={externalLinks.googleMaps} target="_blank" rel="noopener noreferrer">
+                {`${clinicContact.addressLine}, ${clinicContact.neighborhoodLine}`}
+              </a>
             </p>
             <p className="site-footer__contact-row">
               <span aria-hidden="true">☎</span>
@@ -126,7 +128,7 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
               className="site-footer__whatsapp brand-cta"
               href={getWhatsAppLink(activePage)}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               <span className="brand-cta__mark" aria-hidden="true">
                 <img src={brandMark} alt="" />
@@ -139,7 +141,10 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
         <div className="site-footer__bottom">
           <p>© 2026 Lisse Clinic</p>
           <p>
-            Desenvolvido por <strong>Águia Digital</strong>
+            Desenvolvido por{' '}
+            <a href={externalLinks.agency} target="_blank" rel="noopener noreferrer">
+              <strong>Águia Digital</strong>
+            </a>
           </p>
         </div>
       </div>

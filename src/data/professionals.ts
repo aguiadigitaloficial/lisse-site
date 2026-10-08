@@ -2,14 +2,15 @@ import type { Professional } from '../types/content'
 import type { SpecialtyPage } from './site'
 
 export const professionals: readonly Professional[] = [
+  { id: 'kelly', name: 'Kelly Trindade', role: 'Biomédica Esteta', registration: 'CRBM: 12472' },
   { id: 'yeiko', name: 'Dr. Yeiko Roca', role: 'Médico', registration: 'CRM 91646', specialty: 'Estética Facial & Corporal' },
-  { id: 'fernanda', name: 'Dra. Fernanda Lucas', role: 'Nutricionista' },
+  { id: 'fernanda', name: 'Dra. Fernanda Lucas', role: 'Nutricionista', registration: 'CRN9 15241' },
   { id: 'diego', name: 'Dr. Diego Lacerda', role: 'Médico', registration: 'CRM 64350', specialty: 'Tricologista' },
-  { id: 'diogo', name: 'Dr. Diogo Rafael', role: 'Biomédico Esteta', specialty: 'Estética Facial & Corporal' },
+  { id: 'diogo', name: 'Dr. Diogo Rafael', role: 'Biomédico Esteta', registration: 'CRBM 14403', specialty: 'Estética Facial & Corporal' },
 ]
 
 export const specialtyProfessionalIds: Record<SpecialtyPage, readonly string[]> = {
-  harmonizacao: ['yeiko', 'diogo'],
+  harmonizacao: ['yeiko', 'diogo', 'kelly'],
   faloplastia: ['yeiko'],
   emagrecimento: ['fernanda'],
 }
