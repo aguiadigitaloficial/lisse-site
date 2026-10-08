@@ -21,10 +21,9 @@ import image3_640 from '../assets/optimized/weight-loss-side-640.webp'
 import image3_960 from '../assets/optimized/weight-loss-side-960.webp'
 import image3_1200 from '../assets/optimized/weight-loss-side-1200.webp'
 import original4 from '../assets/treatments/phaloplasty-consultation-candid.jpg'
-import image4_320 from '../assets/optimized/phaloplasty-consultation-candid-320.webp'
-import image4_640 from '../assets/optimized/phaloplasty-consultation-candid-640.webp'
-import image4_960 from '../assets/optimized/phaloplasty-consultation-candid-960.webp'
-import image4_1200 from '../assets/optimized/phaloplasty-consultation-candid-1200.webp'
+import image4_480 from '../assets/optimized/phaloplasty-consultation-candid-square-480.webp'
+import image4_720 from '../assets/optimized/phaloplasty-consultation-candid-square-720.webp'
+import image4_941 from '../assets/optimized/phaloplasty-consultation-candid-square-941.webp'
 import original5 from '../assets/treatments/phaloplasty-private-care.webp'
 import image5_320 from '../assets/optimized/phaloplasty-private-care-320.webp'
 import image5_640 from '../assets/optimized/phaloplasty-private-care-640.webp'
@@ -104,7 +103,7 @@ export const specialtyImageProps = createImageProps({
   [original1]: { src: image1_1100, srcSet: `${image1_320} 320w, ${image1_640} 640w, ${image1_960} 960w, ${image1_1100} 1100w`, width: 1100, height: 1467 },
   [original2]: { src: image2_1200, srcSet: `${image2_320} 320w, ${image2_640} 640w, ${image2_960} 960w, ${image2_1200} 1200w`, width: 1280, height: 1266 },
   [original3]: { src: image3_1200, srcSet: `${image3_320} 320w, ${image3_640} 640w, ${image3_960} 960w, ${image3_1200} 1200w`, width: 1280, height: 1280 },
-  [original4]: { src: image4_1200, srcSet: `${image4_320} 320w, ${image4_640} 640w, ${image4_960} 960w, ${image4_1200} 1200w`, width: 1672, height: 941 },
+  [original4]: { src: image4_941, srcSet: `${image4_480} 480w, ${image4_720} 720w, ${image4_941} 941w`, width: 941, height: 941 },
   [original5]: { src: image5_960, srcSet: `${image5_320} 320w, ${image5_640} 640w, ${image5_960} 960w`, width: 960, height: 1280 },
   [original6]: { src: image6_853, srcSet: `${image6_320} 320w, ${image6_640} 640w, ${image6_853} 853w`, width: 853, height: 1280 },
   [original7]: { src: image7_1200, srcSet: `${image7_320} 320w, ${image7_640} 640w, ${image7_960} 960w, ${image7_1200} 1200w`, width: 1254, height: 1254 },

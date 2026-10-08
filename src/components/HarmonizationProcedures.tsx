@@ -18,7 +18,12 @@ function ProcedureCard({ procedure }: ProcedureCardProps) {
       <div className="harmonization-procedure__image">
         <img
           src={procedure.image}
-          {...specialtyImageProps(procedure.image, '(max-width: 999px) 90vw, 550px')}
+          {...specialtyImageProps(
+            procedure.image,
+            procedure.id === 'avaliacao-faloplastia'
+              ? '(max-width: 564px) calc(100vw - 24px), 540px'
+              : '(max-width: 999px) 90vw, 550px',
+          )}
           alt={procedure.imageAlt}
           loading="lazy"
           decoding="async"
