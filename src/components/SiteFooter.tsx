@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import brandLogo from '../assets/hero/brand-logo.svg'
 import brandMark from '../assets/hero/brand-mark.svg'
 import addressIcon from '../assets/information/address-icon.png'
@@ -124,7 +125,7 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
               <span aria-hidden="true">☎</span>
               <a href={`tel:+${clinicContact.whatsappNumber}`}>{clinicContact.phoneDisplay}</a>
             </p>
-            <a
+            <ContactLink
               className="site-footer__whatsapp brand-cta"
               href={getWhatsAppLink(activePage)}
               target="_blank"
@@ -134,7 +135,7 @@ export function SiteFooter({ activePage, onNavigate }: SiteFooterProps) {
                 <img src={brandMark} alt="" />
               </span>
               <span className="brand-cta__label">Atendimento via WhatsApp</span>
-            </a>
+            </ContactLink>
           </div>
         </div>
 

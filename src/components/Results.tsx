@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import type { CSSProperties, Ref } from 'react'
 import decorMarkLeft from '../assets/about/decor-mark-left.svg'
 import decorMarkRight from '../assets/about/decor-mark-right.svg'
@@ -290,7 +291,7 @@ export function Results({ page = 'inicio' }: ResultsProps) {
           ))}
         </div>
 
-        <a
+        <ContactLink
           className="results-section__cta brand-cta brand-cta--compact"
           href={getWhatsAppLink(page)}
           target="_blank"
@@ -301,7 +302,7 @@ export function Results({ page = 'inicio' }: ResultsProps) {
             <img src={brandMark} alt="" />
           </span>
           <span className="brand-cta__label">Agendar avaliação</span>
-        </a>
+        </ContactLink>
       </div>
     </section>
   )

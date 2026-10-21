@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import {
   useCallback,
   useEffect,
@@ -518,7 +519,7 @@ export function Reviews({ page = 'inicio' }: ReviewsProps) {
           {reviewCount}
         </p>
 
-        <a
+        <ContactLink
           className="reviews-section__cta brand-cta brand-cta--compact"
           href={getWhatsAppLink(page)}
           target="_blank"
@@ -529,7 +530,7 @@ export function Reviews({ page = 'inicio' }: ReviewsProps) {
             <img src={brandMark} alt="" />
           </span>
           <span className="brand-cta__label">Desejo agendar minha consulta</span>
-        </a>
+        </ContactLink>
       </div>
     </section>
   )

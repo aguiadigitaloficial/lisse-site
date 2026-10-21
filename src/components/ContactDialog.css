@@ -1,0 +1,63 @@
+.contact-flow {
+  box-sizing: border-box;
+  position: fixed;
+  inset: var(--contact-viewport-center, 50dvh) 0 auto;
+  transform: translateY(-50%);
+  width: min(480px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(var(--contact-viewport-height, 100dvh) - 32px);
+  margin: 0 auto;
+  padding: 28px 32px 22px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  border: 1px solid #d8cfc2;
+  border-radius: 16px;
+  background: #fcfaf7;
+  color: #38332f;
+  box-shadow: 0 24px 80px #27221c33;
+  font-family: 'Inter', sans-serif;
+  text-align: left;
+  color-scheme: light;
+}
+
+.contact-flow::backdrop { background: #28231f80; }
+.contact-flow *, .contact-flow *::before, .contact-flow *::after { box-sizing: border-box; }
+.contact-flow__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.contact-flow .contact-flow__step { margin: 0; color: #625b53; font-size: 12px; }
+.contact-flow button, .contact-flow input { font: inherit; }
+.contact-flow__close, .contact-flow__back { background: transparent; color: #625b53; border: 0; cursor: pointer; min-height: 44px; padding: 8px; }
+.contact-flow__close { display: inline-flex; align-items: center; gap: 10px; font-size: 12px !important; }
+.contact-flow__close span:last-child { font-size: 26px; line-height: 1; }
+.contact-flow__progress { display: flex; gap: 6px; margin: 8px 0 26px; }
+.contact-flow__progress span { flex: 1; height: 2px; background: #e5dfd7; }
+.contact-flow__progress span[data-complete='true'] { background: #a18462; }
+.contact-flow h2 { margin: 0; font: 500 clamp(30px, 7vw, 36px)/1.08 'Cormorant Infant', serif; letter-spacing: -.02em; }
+.contact-flow .contact-flow__intro { margin: 14px 0 24px; color: #625b53; font-size: 14px; line-height: 1.6; }
+.contact-flow__field label, .contact-flow__services legend { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 500; }
+.contact-flow .contact-flow__input { display: block; width: 100%; min-width: 0; min-height: 52px; padding: 12px 14px; background: #fffdfa; color: #38332f; border: 1px solid #a99d8e; border-radius: 8px; font-size: 16px; }
+.contact-flow__input::placeholder { color: #766d63; }
+.contact-flow__input[aria-invalid='true'] { border-color: #a13e32; }
+.contact-flow__services { margin: 0; padding: 0; border: 0; min-width: 0; }
+.contact-flow__services label { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 10px 2px; border-bottom: 1px solid #e5dfd7; cursor: pointer; font-size: 14px; }
+.contact-flow__services input { width: 18px; height: 18px; margin: 0; flex-shrink: 0; accent-color: #766047; }
+.contact-flow__review { margin: 0; }
+.contact-flow__review div { padding: 12px 0; border-bottom: 1px solid #e5dfd7; }
+.contact-flow__review dt { color: #625b53; font-size: 12px; margin-bottom: 4px; }
+.contact-flow__review dd { margin: 0; font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.contact-flow .contact-flow__notice { margin: 18px 0 0; font-size: 13px; line-height: 1.6; color: #625b53; }
+.contact-flow .contact-flow__error { margin: 12px 0 0; font-size: 13px; line-height: 1.5; color: #a13e32; }
+.contact-flow__actions { display: flex; flex-direction: column; gap: 4px; margin-top: 24px; }
+.contact-flow .contact-flow__primary { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; padding: 12px 18px; border: 1px solid #38332f; border-radius: 999px; background: #38332f; color: #fffdfa; font-size: 14px; font-weight: 500; line-height: 1.5; text-align: center; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; }
+.contact-flow__primary:hover { background: #514940; }
+.contact-flow__back { align-self: center; min-width: 80px; font-size: 13px !important; text-decoration: underline; text-underline-offset: 4px; }
+.contact-flow .contact-flow__privacy { margin: 18px 0 0; color: #625b53; font-size: 11px; line-height: 1.5; text-align: center; }
+.contact-flow :focus-visible { outline: 2px solid #766047; outline-offset: 3px; }
+.contact-flow h2:focus { outline: none; }
+@media (max-width: 500px) {
+  .contact-flow { padding: 18px 20px; }
+  .contact-flow__progress { margin-bottom: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-flow .contact-flow__primary { transition: none; }
+}

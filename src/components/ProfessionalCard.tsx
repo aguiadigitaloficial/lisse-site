@@ -1,3 +1,5 @@
+import { professionalContactService } from '../data/contactFlow'
+import { ContactLink } from './ContactLink'
 import brandMark from '../assets/hero/brand-mark.svg'
 import { homeImageProps } from '../data/homeImageVariants'
 import separatorMark from '../assets/hero/separator-mark.png'
@@ -49,10 +51,10 @@ export function ProfessionalCard({ profile, index, onNavigate }: ProfessionalCar
               {services.map((service) => <li key={service}>{service}</li>)}
             </ul>
             <div className="professional-sheet__actions">
-              <a className="professional-sheet__contact" href={getProfessionalWhatsAppLink(professional.name)} target="_blank" rel="noreferrer" aria-label={`Conversar com a equipe sobre ${professional.name} pelo WhatsApp`}>
+              <ContactLink professional={professional.name} service={professionalContactService[professional.id]} className="professional-sheet__contact" href={getProfessionalWhatsAppLink(professional.name)} target="_blank" rel="noreferrer" aria-label={`Conversar com a equipe sobre ${professional.name} pelo WhatsApp`}>
                 <img src={brandMark} alt="" aria-hidden="true" />
                 <span>Agendar pelo WhatsApp</span>
-              </a>
+              </ContactLink>
               {pages.length > 0 && <div className="professional-sheet__links">
                 {pages.map(({ page, label }) => (
                   <a href={getPagePath(page, 'inicio')} key={page} onClick={(event) => {

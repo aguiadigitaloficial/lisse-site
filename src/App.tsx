@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { flushSync } from 'react-dom'
 import { Header } from './components/Header'
+import { ContactFlowProvider } from './components/ContactFlowProvider'
 import { FloatingWhatsApp } from './components/FloatingWhatsApp'
 import { SiteFooter } from './components/SiteFooter'
 import {
@@ -281,7 +282,7 @@ function App() {
   }
 
   return (
-    <>
+    <ContactFlowProvider key={activePage} page={activePage}>
       <Header key={activePage} activePage={activePage} onNavigate={navigate} />
       <main ref={mainRef} tabIndex={-1}>
         {activePage === 'inicio' ? (
@@ -297,7 +298,7 @@ function App() {
       </main>
       <SiteFooter activePage={activePage} onNavigate={navigate} />
       <FloatingWhatsApp page={activePage} />
-    </>
+    </ContactFlowProvider>
   )
 }
 

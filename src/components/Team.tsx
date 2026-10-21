@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import {
   useCallback,
   useEffect,
@@ -226,7 +227,7 @@ export function Team() {
           </p>
         </div>
 
-        <a
+        <ContactLink
           className="team-section__cta brand-cta"
           href={getWhatsAppLink()}
           target="_blank"
@@ -237,7 +238,7 @@ export function Team() {
             <img src={brandMark} alt="" />
           </span>
           <span className="brand-cta__label">Desejo agendar minha consulta</span>
-        </a>
+        </ContactLink>
       </div>
     </section>
   )

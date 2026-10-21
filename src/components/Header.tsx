@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import { useEffect, useState } from 'react'
 import brandLogo from '../assets/hero/brand-logo.svg'
 import brandMark from '../assets/hero/brand-mark.svg'
@@ -58,7 +59,7 @@ export function Header({ activePage, onNavigate }: HeaderProps) {
           ))}
         </nav>
 
-        <a
+        <ContactLink
           className="contact-pill brand-cta"
           href={getWhatsAppLink(activePage)}
           target="_blank"
@@ -68,7 +69,7 @@ export function Header({ activePage, onNavigate }: HeaderProps) {
             <img src={brandMark} alt="" />
           </span>
           <span className="brand-cta__label">Entre em contato</span>
-        </a>
+        </ContactLink>
 
         <button
           className="menu-toggle"
@@ -104,7 +105,7 @@ export function Header({ activePage, onNavigate }: HeaderProps) {
             {item.label}
           </a>
         ))}
-        <a
+        <ContactLink
           className="mobile-nav__contact"
           href={getWhatsAppLink(activePage)}
           target="_blank"
@@ -112,7 +113,7 @@ export function Header({ activePage, onNavigate }: HeaderProps) {
           onClick={() => setMenuOpen(false)}
         >
           Entre em contato
-        </a>
+        </ContactLink>
       </nav>
     </header>
   )

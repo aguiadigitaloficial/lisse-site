@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import { useEffect, useRef } from 'react'
 import backgroundMark from '../assets/hero/background-mark.png'
 import brandMark from '../assets/hero/brand-mark.svg'
@@ -256,14 +257,14 @@ export function Hero({ page, onNavigate, specialtyConfig, imageProps }: HeroProp
           </div>
 
           <div className="hero__actions" aria-label="Ações principais">
-            <a
+            <ContactLink
               className="button button--primary"
               href={getWhatsAppLink(page)}
               target="_blank"
               rel="noreferrer"
             >
               Agendar avaliação
-            </a>
+            </ContactLink>
             {specialtyConfig ? (
               <a
                 className="button button--link"

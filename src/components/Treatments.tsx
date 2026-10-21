@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import brandMark from '../assets/hero/brand-mark.svg'
 import { useProfessionalStack } from '../hooks/useProfessionalStack'
 import { homeProfessionals } from '../data/homeProfessionals'
@@ -43,10 +44,10 @@ export function Treatments({ onNavigate }: TreatmentsProps) {
             <h3>Não sabe qual cuidado combina com seu objetivo?</h3>
             <p>Agende uma avaliação e receba uma orientação personalizada.</p>
           </div>
-          <a className="treatments-section__cta-button brand-cta brand-cta--compact" href={getWhatsAppLink()} target="_blank" rel="noreferrer">
+          <ContactLink className="treatments-section__cta-button brand-cta brand-cta--compact" href={getWhatsAppLink()} target="_blank" rel="noreferrer">
             <span className="treatments-section__cta-mark brand-cta__mark" aria-hidden="true"><img src={brandMark} alt="" /></span>
             <span className="brand-cta__label">Agendar uma avaliação</span>
-          </a>
+          </ContactLink>
         </div>
       </div>
     </section>

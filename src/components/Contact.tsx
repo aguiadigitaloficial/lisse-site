@@ -1,3 +1,4 @@
+import { ContactLink } from './ContactLink'
 import brandMark from '../assets/hero/brand-mark.svg'
 import welcomeCoffee from '../assets/photography/clinic-welcome-coffee.webp'
 import { getWhatsAppLink } from '../data/site'
@@ -41,7 +42,7 @@ export function Contact() {
             <li data-contact-step>Acompanhamento</li>
           </ul>
 
-          <a
+          <ContactLink
             className="contact-section__cta brand-cta brand-cta--compact"
             href={getWhatsAppLink()}
             target="_blank"
@@ -52,7 +53,7 @@ export function Contact() {
               <img src={brandMark} alt="" />
             </span>
             <span className="brand-cta__label">Agendar avaliação pelo WhatsApp</span>
-          </a>
+          </ContactLink>
 
         </div>
       </div>
