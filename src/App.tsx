@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useSta
 import { flushSync } from 'react-dom'
 import { Header } from './components/Header'
 import { ContactFlowProvider } from './components/ContactFlowProvider'
+import { ContactFormSection } from './components/ContactFormSection'
 import { FloatingWhatsApp } from './components/FloatingWhatsApp'
 import { SiteFooter } from './components/SiteFooter'
 import {
@@ -295,6 +296,7 @@ function App() {
             <SpecialtyLandingPage page={activePage} onNavigate={navigate} onReady={handlePageReady} />
           </Suspense>
         )}
+        {pageReady && <ContactFormSection page={activePage} />}
       </main>
       <SiteFooter activePage={activePage} onNavigate={navigate} />
       <FloatingWhatsApp page={activePage} />

@@ -32,7 +32,7 @@
 .contact-flow__progress { display: flex; gap: 6px; margin: 8px 0 26px; }
 .contact-flow__progress span { flex: 1; height: 2px; background: #e5dfd7; }
 .contact-flow__progress span[data-complete='true'] { background: #a18462; }
-.contact-flow h2 { margin: 0; font: 500 clamp(30px, 7vw, 36px)/1.08 'Cormorant Infant', serif; letter-spacing: -.02em; }
+.contact-flow .contact-flow__title { margin: 0; font: 500 clamp(30px, 7vw, 36px)/1.08 'Cormorant Infant', serif; letter-spacing: -.02em; }
 .contact-flow .contact-flow__intro { margin: 14px 0 24px; color: #625b53; font-size: 14px; line-height: 1.6; }
 .contact-flow__field label, .contact-flow__services legend { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 500; }
 .contact-flow .contact-flow__input { display: block; width: 100%; min-width: 0; min-height: 52px; padding: 12px 14px; background: #fffdfa; color: #38332f; border: 1px solid #a99d8e; border-radius: 8px; font-size: 16px; }
@@ -53,7 +53,7 @@
 .contact-flow__back { align-self: center; min-width: 80px; font-size: 13px !important; text-decoration: underline; text-underline-offset: 4px; }
 .contact-flow .contact-flow__privacy { margin: 18px 0 0; color: #625b53; font-size: 11px; line-height: 1.5; text-align: center; }
 .contact-flow :focus-visible { outline: 2px solid #766047; outline-offset: 3px; }
-.contact-flow h2:focus { outline: none; }
+.contact-flow .contact-flow__title:focus { outline: none; }
 @media (max-width: 500px) {
   .contact-flow { padding: 18px 20px; }
   .contact-flow__progress { margin-bottom: 20px; }

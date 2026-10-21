@@ -40,6 +40,7 @@ export const pageSectionIds: Record<SitePage, readonly string[]> = {
     'avaliacoes',
     'informacoes',
     'contato',
+    'agendamento',
   ],
   harmonizacao: [
     'inicio',
@@ -49,6 +50,7 @@ export const pageSectionIds: Record<SitePage, readonly string[]> = {
     'resultados',
     'avaliacoes',
     'informacoes',
+    'agendamento',
   ],
   faloplastia: [
     'inicio',
@@ -57,6 +59,7 @@ export const pageSectionIds: Record<SitePage, readonly string[]> = {
     'diferenciais-faloplastia',
     'avaliacoes',
     'informacoes',
+    'agendamento',
   ],
   emagrecimento: [
     'inicio',
@@ -66,6 +69,7 @@ export const pageSectionIds: Record<SitePage, readonly string[]> = {
     'resultados',
     'avaliacoes',
     'informacoes',
+    'agendamento',
   ],
 }
 
