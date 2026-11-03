@@ -13,6 +13,6 @@
     { "source": "/harmonizacao", "destination": "/harmonizacao/index.html" },
     { "source": "/faloplastia", "destination": "/faloplastia/index.html" },
     { "source": "/emagrecimento", "destination": "/emagrecimento/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }

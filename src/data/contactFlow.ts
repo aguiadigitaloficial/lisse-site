@@ -34,6 +34,15 @@ export function formatContactPhone(digits: string) {
   return `(${digits.slice(0, 2)}) ${digits.slice(2, -4)}-${digits.slice(-4)}`
 }
 
+export function formatContactPhoneInput(value: string) {
+  let digits = value.replace(/\D/g, '')
+  if (digits.startsWith('55') && (digits.length === 12 || digits.length === 13)) digits = digits.slice(2)
+  digits = digits.slice(0, 11)
+  if (digits.length <= 2) return digits
+  const split = digits.length === 11 ? 7 : 6
+  return `${digits.slice(0, 2)} ${digits.slice(2, split)}${digits.length > split ? `-${digits.slice(split)}` : ''}`
+}
+
 export function getContactFormLink(name: string, phone: string, service: ContactService, origin: ContactOrigin) {
   const pageNames: Record<SitePage, string> = {
     inicio: 'Início', harmonizacao: 'Harmonização', faloplastia: 'Faloplastia', emagrecimento: 'Emagrecimento',

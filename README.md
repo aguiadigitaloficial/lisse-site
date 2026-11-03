@@ -35,7 +35,8 @@ git diff --check
 npm run preview -- --host 127.0.0.1 --port 4174 --strictPort
 ```
 
-O build inclui a verificação TypeScript (`tsc -b`). Não há uma suíte/comando de testes automatizados neste projeto.
+O build inclui a verificação TypeScript (`tsc -b`), inclusive da função de contato.
+`npm run test:contact` verifica a integração com respostas simuladas; não envia dados ao DataCrazy.
 O preview em `http://127.0.0.1:4174` serve o build de produção; não use o servidor de desenvolvimento para comparar Lighthouse.
 
 ## Vercel
@@ -52,7 +53,8 @@ O `vercel.json` mantém acesso direto e atualização das páginas internas.
 - Output directory: `dist`
 - Install command: `npm ci`
 
-Não são necessárias variáveis de ambiente ou backend para esta versão.
+A integração de contato utiliza uma função Node.js em `/api/contato` e a variável
+privada `DATACRAZY_WEBHOOK_URL`. Veja a configuração abaixo.
 Arquivos com hash em `/assets/` têm cache de um ano e `immutable`; HTML deve ser
 revalidado (`max-age=0, must-revalidate`). Os cabeçalhos da Vercel só podem ser
 confirmados no ambiente publicado. O preview local não aplica `vercel.json`.
@@ -60,6 +62,48 @@ Nenhum domínio definitivo foi inventado. Configure-o apenas depois de autorizad
 
 Referência: [Vite na Vercel](https://vercel.com/docs/frameworks/frontend/vite) e
 [política de cache](https://vercel.com/docs/caching/cache-control-headers).
+
+## Contatos no DataCrazy
+
+O formulário das quatro páginas, em janela ou seção, envia somente após
+“Confirmar e enviar”. O navegador chama `POST /api/contato`; a função valida os
+campos e faz um único POST JSON ao webhook. Um HTTP 2xx do DataCrazy libera o link
+de WhatsApp. Isso confirma aceitação técnica, não o cadastro efetivo no funil.
+Em falhas, os dados ficam no formulário e o visitante pode tentar novamente ou
+continuar diretamente no WhatsApp. Não há reenvio automático, banco de dados ou
+registro de nome/telefone/serviço em logs ou armazenamento do navegador.
+
+1. Localmente, copie `.env.example` para `.env.local` e preencha o webhook fornecido pelo cliente. Reinicie o servidor depois de alterar a variável. Ela já foi preenchida no ambiente local desta entrega.
+2. Na Vercel, crie `DATACRAZY_WEBHOOK_URL` nas variáveis do projeto para o ambiente desejado. Copie o valor do link original, mantendo-o privado e sem prefixo `VITE_`. Um novo deployment será necessário para aplicar a configuração.
+3. Use `npm run dev` ou `npm run preview` para testar no localhost: ambos executam o mesmo handler por um adaptador local. O fallback da SPA exclui `/api/` na Vercel.
+4. No DataCrazy, abra a integração correspondente ao link e habilite o recebimento de exemplo. Confira o mapeamento de `name` → nome, `phone` → telefone, `service` → serviço, `professional` → profissional, `page` → página de origem e `source` → origem. O telefone já inclui `55`; não adicione esse prefixo novamente.
+5. Configure e confirme o funil/etapa na integração do CRM. Verifique a regra para telefone já existente e negócio já aberto antes de permitir novas tentativas, para evitar duplicações.
+
+Exemplo para conferir o mapeamento (não enviado automaticamente):
+
+```json
+{
+  "name": "Teste integração Lisse — não contatar",
+  "phone": "5531999999999",
+  "service": "Ainda não sei",
+  "professional": null,
+  "page": "inicio",
+  "source": "Site Lisse"
+}
+```
+
+Antes do teste real, substitua o telefone por um número de teste da equipe e
+confirme que a integração não disparará mensagens de atendimento indevidas.
+Envie uma única amostra e confira em “Dados recebidos” e no cadastro/negócio do
+CRM. Não considere apenas a resposta HTTP como confirmação do funil. Se houver
+timeout, confira o CRM antes de repetir: o primeiro envio pode ter sido recebido.
+O webhook desta entrega ainda depende dessa conferência junto ao cliente.
+
+A função aceita apenas JSON válido até 4 KiB, verifica a origem quando presente
+e limita a espera pelo DataCrazy a 8 segundos. Nenhuma chave ou URL de webhook
+é entregue no bundle. Não há garantia de deduplicação entre sessões sem uma regra
+do CRM; o bloqueio de cliques do formulário evita apenas envios simultâneos na
+mesma instância. Controles adicionais de tráfego podem ser configurados no firewall da Vercel.
 
 ## Conteúdo e manutenção
 

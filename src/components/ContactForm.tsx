@@ -1,8 +1,9 @@
-import { useId, useLayoutEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState, type FormEvent } from 'react'
 import {
-  contactServices, formatContactPhone, getContactFormLink, normalizeContactPhone,
+  contactServices, formatContactPhone, formatContactPhoneInput, getContactFormLink, normalizeContactPhone,
   pageContactService, type ContactOrigin, type ContactService,
 } from '../data/contactFlow'
+import { parseContactSubmission } from '../data/contactSubmission'
 import './ContactDialog.css'
 
 export type ContactFormProps = {
@@ -28,8 +29,46 @@ export function ContactForm({ origin, onClose, titleId: suppliedTitleId, heading
   const [phone, setPhone] = useState('')
   const [service, setService] = useState<ContactService | ''>(origin.service ?? pageContactService[origin.page] ?? '')
   const [error, setError] = useState('')
+  const [submission, setSubmission] = useState<'idle' | 'sending' | 'accepted' | 'failed'>('idle')
+  const submissionLock = useRef(false)
+  const pendingRequest = useRef<AbortController | null>(null)
+  const mounted = useRef(true)
   const normalizedPhone = normalizeContactPhone(phone)
 
+  useEffect(() => {
+    mounted.current = true
+    return () => { mounted.current = false; pendingRequest.current?.abort() }
+  }, [])
+
+  const submitContact = async () => {
+    if (submissionLock.current || submission === 'accepted') return
+    const payload = parseContactSubmission({ name, phone, service, professional: origin.professional, page: origin.page })
+    if (!payload) { setError('Confira os dados antes de enviar.'); return }
+    submissionLock.current = true
+    setSubmission('sending')
+    setError('')
+    const controller = new AbortController()
+    pendingRequest.current = controller
+    const timeout = window.setTimeout(() => controller.abort(), 12000)
+    try {
+      const response = await fetch('/api/contato', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload), signal: controller.signal,
+      })
+      const result = await response.json()
+      if (!response.ok || result?.ok !== true || result?.status !== 'accepted') throw new Error('Contact not accepted')
+      if (mounted.current) setSubmission('accepted')
+    } catch {
+      if (mounted.current) {
+        setSubmission('failed')
+        setError('Não foi possível confirmar o envio. Você pode tentar novamente ou continuar pelo WhatsApp.')
+      }
+    } finally {
+      window.clearTimeout(timeout)
+      submissionLock.current = false
+      if (pendingRequest.current === controller) pendingRequest.current = null
+    }
+  }
 
   useLayoutEffect(() => {
     // The inline section must never steal focus or scroll on load.
@@ -45,6 +84,7 @@ export function ContactForm({ origin, onClose, titleId: suppliedTitleId, heading
 
   const advance = (event: FormEvent) => {
     event.preventDefault()
+    if (step === 3) { void submitContact(); return }
     const message = step === 0 && !name.trim() ? 'Digite seu nome para continuar.'
       : step === 1 && !normalizedPhone ? 'Digite um telefone com DDD e 10 ou 11 dígitos.'
         : step === 2 && !service ? 'Escolha um serviço ou selecione “Ainda não sei”.' : ''
@@ -73,7 +113,7 @@ export function ContactForm({ origin, onClose, titleId: suppliedTitleId, heading
       : step === 1 ? 'Informe seu número com DDD para facilitar o contato com a equipe.'
         : step === 2 ? 'Você pode esclarecer suas dúvidas com a equipe antes de decidir.'
           : 'Confira seus dados antes de seguir para a conversa.'}</p>
-    <form onSubmit={advance} noValidate aria-labelledby={titleId}>
+    <form onSubmit={advance} noValidate aria-labelledby={titleId} aria-busy={submission === 'sending'}>
       {step === 0 && <div className="contact-flow__field">
         <label htmlFor={nameId}>Seu nome</label>
         <input id={nameId} className="contact-flow__input" name="name" autoComplete="given-name" maxLength={100} required
@@ -81,8 +121,20 @@ export function ContactForm({ origin, onClose, titleId: suppliedTitleId, heading
       </div>}
       {step === 1 && <div className="contact-flow__field">
         <label htmlFor={phoneId}>WhatsApp com DDD</label>
-        <input id={phoneId} className="contact-flow__input" name="tel" type="tel" inputMode="tel" autoComplete="tel" placeholder="(31) 99999-9999" maxLength={25} required
-          value={phone} onChange={(event) => { setPhone(event.target.value); setError('') }} aria-invalid={!!error} aria-describedby={error ? errorId : undefined} />
+        <input id={phoneId} className="contact-flow__input" name="tel" type="tel" inputMode="tel" autoComplete="tel" placeholder="31 99999-9999" maxLength={13} required
+          value={phone} onChange={(event) => { setPhone(formatContactPhoneInput(event.target.value)); setError('') }}
+          onPaste={(event) => {
+            event.preventDefault()
+            const pasted = event.clipboardData.getData('text')
+            if (pasted.includes('+') && !/^\s*\+55/.test(pasted)) {
+              setError('Use um número brasileiro com DDD.')
+              return
+            }
+            const input = event.currentTarget
+            const next = phone.slice(0, input.selectionStart ?? 0) + pasted + phone.slice(input.selectionEnd ?? phone.length)
+            setPhone(formatContactPhoneInput(next))
+            setError('')
+          }} aria-invalid={!!error} aria-describedby={error ? errorId : undefined} />
       </div>}
       {step === 2 && <fieldset className="contact-flow__services" aria-describedby={error ? errorId : undefined} aria-invalid={!!error}>
         <legend>Serviço de interesse</legend>
@@ -99,16 +151,19 @@ export function ContactForm({ origin, onClose, titleId: suppliedTitleId, heading
           <div><dt>Serviço de interesse</dt><dd>{service}</dd></div>
           {origin.professional && <div><dt>Profissional de interesse</dt><dd>{origin.professional}</dd></div>}
         </dl>
-        <p className="contact-flow__notice">Ao continuar, o WhatsApp será aberto com seus dados preenchidos. Você confirma o envio por lá.</p>
+        <p className="contact-flow__notice">Ao confirmar, seus dados serão encaminhados à Lisse Clinic para registro no CRM e contato sobre seu atendimento. Depois, você poderá continuar pelo WhatsApp.</p>
+        {submission === 'accepted' && <p className="contact-flow__notice" role="status">Seus dados foram encaminhados. Continue a conversa com nossa equipe pelo WhatsApp.</p>}
+        {submission === 'sending' && <p className="contact-flow__notice" role="status">Enviando seus dados…</p>}
       </>}
       {error && <p id={errorId} className="contact-flow__error" role="alert">{error}</p>}
       <div className="contact-flow__actions">
-        {step === 3 && normalizedPhone && service
+        {step === 3 && submission === 'accepted' && normalizedPhone && service
           ? <a className="contact-flow__primary" href={getContactFormLink(name, normalizedPhone, service, origin)} target="_blank" rel="noopener noreferrer">Continuar no WhatsApp</a>
-          : <button type="submit" className="contact-flow__primary">Continuar</button>}
-        {step > 0 && <button type="button" className="contact-flow__back" onClick={() => { interacted.current = true; setError(''); setStep((current) => current - 1) }}>Voltar</button>}
+          : <button type="submit" className="contact-flow__primary" disabled={submission === 'sending'}>{step !== 3 ? 'Continuar' : submission === 'sending' ? 'Enviando…' : submission === 'failed' ? 'Tentar novamente' : 'Confirmar e enviar'}</button>}
+        {step === 3 && submission === 'failed' && normalizedPhone && service && <a className="contact-flow__back" href={getContactFormLink(name, normalizedPhone, service, origin)} target="_blank" rel="noopener noreferrer">Continuar pelo WhatsApp</a>}
+        {step > 0 && submission !== 'accepted' && <button type="button" className="contact-flow__back" disabled={submission === 'sending'} onClick={() => { interacted.current = true; setSubmission('idle'); setError(''); setStep((current) => current - 1) }}>Voltar</button>}
       </div>
     </form>
-    <p className="contact-flow__privacy">Seus dados não são salvos neste site.</p>
+    <p className="contact-flow__privacy">Usamos seus dados para encaminhar seu contato à equipe da Lisse Clinic.</p>
   </div>
 }

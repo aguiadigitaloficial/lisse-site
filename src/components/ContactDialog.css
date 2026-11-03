@@ -50,6 +50,9 @@
 .contact-flow__actions { display: flex; flex-direction: column; gap: 4px; margin-top: 24px; }
 .contact-flow .contact-flow__primary { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; padding: 12px 18px; border: 1px solid #38332f; border-radius: 999px; background: #38332f; color: #fffdfa; font-size: 14px; font-weight: 500; line-height: 1.5; text-align: center; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; }
 .contact-flow__primary:hover { background: #514940; }
+.contact-flow .contact-flow__primary:disabled, .contact-flow__back:disabled { opacity: .65; cursor: wait; }
+.contact-flow .contact-flow__primary:disabled:hover { background: #38332f; }
+.contact-flow a.contact-flow__back { display: inline-flex; align-items: center; justify-content: center; color: #625b53; }
 .contact-flow__back { align-self: center; min-width: 80px; font-size: 13px !important; text-decoration: underline; text-underline-offset: 4px; }
 .contact-flow .contact-flow__privacy { margin: 18px 0 0; color: #625b53; font-size: 11px; line-height: 1.5; text-align: center; }
 .contact-flow :focus-visible { outline: 2px solid #766047; outline-offset: 3px; }
